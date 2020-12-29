@@ -1,0 +1,3 @@
+rootProject.name = 'datamanagement'
+include 'uu_datamanagement_maing01-server'
+include 'uu_datamanagement_maing01-hi'
