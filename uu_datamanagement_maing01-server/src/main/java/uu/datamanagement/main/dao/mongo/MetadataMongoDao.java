@@ -1,6 +1,7 @@
 package uu.datamanagement.main.dao.mongo;
 
 import com.mongodb.WriteResult;
+import java.util.Optional;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import uu.app.objectstore.annotations.ObjectStoreDao;
@@ -16,5 +17,9 @@ public class MetadataMongoDao extends UuObjectMongoDao<Metadata> implements Meta
     Query query = new Query().addCriteria(Criteria.where(ATTR_AWID).is(awid));
 
     return this.deleteMany(query);
+  }
+
+  public Optional<Metadata> getById(String awid, String id) {
+    return Optional.ofNullable(super.get(awid, id));
   }
 }

@@ -6,16 +6,15 @@ import uu.app.exception.AppRuntimeException;
 import uu.app.exception.ErrorCode;
 import uu.datamanagement.main.validation.exception.ErrorDefinition;
 
-public class MetadataRuntimeException extends AppRuntimeException {
+public class GSKDocumentRuntimeException extends AppRuntimeException {
 
-  public MetadataRuntimeException(MetadataRuntimeException.Error code, Map<String, ?> paramMap) {
+  public GSKDocumentRuntimeException(MetadataRuntimeException.Error code, Map<String, ?> paramMap) {
     super(code.getCode(), code.getMessage(), (AppErrorMap) null, paramMap, null);
   }
 
   public enum Error implements ErrorDefinition {
 
-    INVALID_DTO_IN(ErrorCode.application("uu-datamanagement-main/metadata/invalidDtoIn"), "DtoIn is not valid."),
-    GET_METADATA_FAILED(ErrorCode.application("uu-datamanagement-main/metadata/getById"), "Metadata by dtoIn.id doesn't exist.");
+    INVALID_DTO_IN(ErrorCode.application("uu-datamanagement-main/gskDocument/invalidDtoIn"), "DtoIn is not valid.");
 
     private ErrorCode code;
 

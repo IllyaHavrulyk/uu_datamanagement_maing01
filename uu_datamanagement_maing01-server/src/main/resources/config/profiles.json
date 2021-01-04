@@ -13,7 +13,10 @@
       "init": ["AwidOwner"],
       "defaultUve": ["Public"],
       "clean": ["Authorities", "Executives", "AwidOwner"],
-      "metadata/list": ["Authorities", "Executives", "AwidOwner"]
+      "metadata/list": ["Authorities", "Executives", "AwidOwner"],
+      "metadata/update": ["Authorities", "Executives", "AwidOwner"],
+      "metadata/create": ["Authorities", "Executives", "AwidOwner"],
+      "gskdocument/create": ["Authorities", "Executives", "AwidOwner"]
     }
   }
 }

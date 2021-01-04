@@ -14,3 +14,15 @@ const metadataListDtoInType = shape({
     pageSize: integer()
   })
 })
+
+const metadataUpdateDtoInType = shape({
+  sender: string(),
+  receiver: string(),
+  domain: string()
+})
+
+const gskDocumentDtoInType = shape({
+  name: string(100),
+  text: string(500),
+  document: binary().isRequired()
+})

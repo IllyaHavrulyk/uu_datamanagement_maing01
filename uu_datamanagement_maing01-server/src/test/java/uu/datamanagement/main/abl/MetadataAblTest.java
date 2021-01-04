@@ -5,6 +5,9 @@ import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.AllOf.allOf;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.when;
 import static uu.datamanagement.main.api.exceptions.MetadataRuntimeException.Error.INVALID_DTO_IN;
 
 import java.util.Arrays;
@@ -26,8 +29,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import uu.app.testSupport.AppRuntimeExceptionMatcher;
 import uu.datamanagement.main.SubAppPersistenceConfiguration;
 import uu.datamanagement.main.abl.entity.Metadata;
+import uu.datamanagement.main.api.dto.MetadataDtoOut;
 import uu.datamanagement.main.api.dto.MetadataListDtoIn;
 import uu.datamanagement.main.api.dto.MetadataListDtoOut;
+import uu.datamanagement.main.api.dto.MetadataUpdateDtoIn;
 import uu.datamanagement.main.dao.MetadataDao;
 import uu.datamanagement.main.dao.mongo.MetadataMongoDao;
 import uu.datamanagement.main.helper.ValidationHelper;
@@ -57,7 +62,7 @@ public class MetadataAblTest {
 
   @Test
   public void testListMetadata() {
-    prepareTestData();
+    prepareTestData(3);
 
     MetadataListDtoOut dtoOut = metadataAbl.list(clearDatabaseRule.getAwid(), new MetadataListDtoIn());
 
@@ -82,8 +87,8 @@ public class MetadataAblTest {
     ));
   }
 
-  private void prepareTestData() {
-    for (int i = 0; i < 3; i++) {
+  private void prepareTestData(int count) {
+    for (int i = 0; i < count; i++) {
       Metadata metadata = new Metadata();
       metadata.setAwid(clearDatabaseRule.getAwid());
       metadata.setDomain("test #" + i);
