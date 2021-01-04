@@ -6,17 +6,15 @@ import uu.app.exception.AppRuntimeException;
 import uu.app.exception.ErrorCode;
 import uu.datamanagement.main.validation.exception.ErrorDefinition;
 
-public final class DatamanagementMainInitRuntimeException extends AppRuntimeException {
+public class MetadataRuntimeException extends AppRuntimeException {
 
-  public DatamanagementMainInitRuntimeException(DatamanagementMainInitRuntimeException.Error code, Map<String, ?> paramMap) {
+  public MetadataRuntimeException(MetadataRuntimeException.Error code, Map<String, ?> paramMap) {
     super(code.getCode(), code.getMessage(), (AppErrorMap) null, paramMap, null);
   }
 
   public enum Error implements ErrorDefinition {
 
-    INVALID_DTO_IN(ErrorCode.application("uu-datamanagement-main/invalidDtoIn"), "DtoIn is not valid."),
-
-    SET_PROFILE_FAILED(ErrorCode.application("uu-datamanagement-main/init/sys/setProfileFailed"), "Set profile failed.");
+    INVALID_DTO_IN(ErrorCode.application("uu-datamanagement-main/metadata/invalidDtoIn"), "DtoIn is not valid.");
 
     private ErrorCode code;
 

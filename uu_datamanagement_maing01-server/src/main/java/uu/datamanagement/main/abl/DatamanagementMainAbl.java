@@ -1,31 +1,31 @@
 package uu.datamanagement.main.abl;
 
-import javax.inject.Inject;
 import org.springframework.stereotype.Component;
 import uu.app.validation.ValidationResult;
 import uu.app.validation.Validator;
 import uu.app.validation.utils.ValidationResultUtils;
 import uu.app.workspace.Profile;
 import uu.app.workspace.dto.profile.SysSetProfileDtoIn;
-import uu.datamanagement.main.dao.DatamanagementMainDao;
 import uu.datamanagement.main.api.dto.DatamanagementMainInitDtoIn;
 import uu.datamanagement.main.api.dto.DatamanagementMainInitDtoOut;
 import uu.datamanagement.main.api.exceptions.DatamanagementMainInitRuntimeException;
 import uu.datamanagement.main.api.exceptions.DatamanagementMainInitRuntimeException.Error;
+import uu.datamanagement.main.dao.DatamanagementMainDao;
 
 @Component
 public final class DatamanagementMainAbl {
 
   private static final String AUTHORITIES_CODE = "Authorities";
 
-  @Inject
-  private Validator validator;
+  private final Profile profile;
+  private final DatamanagementMainDao datamanagementMainDao;
+  private final Validator validator;
 
-  @Inject
-  private Profile profile;
-
-  @Inject
-  private DatamanagementMainDao datamanagementMainDao;
+  public DatamanagementMainAbl(DatamanagementMainDao datamanagementMainDao, Profile profile, Validator validator) {
+    this.datamanagementMainDao = datamanagementMainDao;
+    this.profile = profile;
+    this.validator = validator;
+  }
 
   public DatamanagementMainInitDtoOut init(String awid, DatamanagementMainInitDtoIn dtoIn) {
     // HDS 1

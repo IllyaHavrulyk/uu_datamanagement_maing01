@@ -1,9 +1,6 @@
 package uu.datamanagement.main;
 
-import static org.springframework.core.env.AbstractEnvironment.DEFAULT_PROFILES_PROPERTY_NAME;
-
 import org.springframework.boot.SpringApplication;
-import uu.app.core.core.UuProfiles;
 import uu.app.subapp.AbstractSubAppRunner;
 import uu.app.subapp.annotation.UuSubApp;
 
