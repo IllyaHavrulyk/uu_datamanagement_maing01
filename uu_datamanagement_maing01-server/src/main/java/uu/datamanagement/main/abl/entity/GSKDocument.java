@@ -1,20 +1,21 @@
 package uu.datamanagement.main.abl.entity;
 
+import java.util.List;
 import uu.app.objectstore.mongodb.domain.AbstractUuObject;
 
 public class GSKDocument extends AbstractUuObject {
 
   private String documentIdentification;
   private String metadataId;
-  private GSKSeries series;
+  private List<GSKSeries> gskSeries;
 
   public GSKDocument() {
   }
 
-  public GSKDocument(String documentIdentification, String metadataId, GSKSeries series) {
+  public GSKDocument(String documentIdentification, String metadataId, List<GSKSeries> series) {
     this.documentIdentification = documentIdentification;
     this.metadataId = metadataId;
-    this.series = series;
+    this.gskSeries = series;
   }
 
   public String getDocumentIdentification() {
@@ -33,11 +34,11 @@ public class GSKDocument extends AbstractUuObject {
     this.metadataId = metadataId;
   }
 
-  public GSKSeries getSeries() {
-    return series;
+  public List<GSKSeries> getGskSeries() {
+    return gskSeries;
   }
 
-  public void setSeries(GSKSeries series) {
-    this.series = series;
+  public void setGskSeries(List<GSKSeries> gskSeries) {
+    this.gskSeries = gskSeries;
   }
 }

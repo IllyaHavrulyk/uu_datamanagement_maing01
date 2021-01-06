@@ -51,7 +51,8 @@ public class MetadataAbl {
     Metadata metadata = metadataDao.getById(awid, dtoIn.getId())
       .orElseThrow(() -> new MetadataRuntimeException(Error.GET_METADATA_FAILED, Collections.singletonMap("id", dtoIn.getId())));
 
-    return modelMapper.map(updateData(metadata, dtoIn), MetadataDtoOut.class);
+    Metadata source = updateData(metadata, dtoIn);
+    return modelMapper.map(source, MetadataDtoOut.class);
   }
 
   private Metadata updateData(Metadata metadata, MetadataUpdateDtoIn dtoIn) {

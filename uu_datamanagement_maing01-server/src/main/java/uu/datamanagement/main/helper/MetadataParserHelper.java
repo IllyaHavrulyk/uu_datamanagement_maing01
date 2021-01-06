@@ -7,13 +7,14 @@ import javax.xml.stream.XMLStreamReader;
 import org.springframework.stereotype.Component;
 import uu.datamanagement.main.abl.entity.Metadata;
 import uu.datamanagement.main.utils.DocumentType;
+import uu.datamanagement.main.utils.TimeInterval;
 
 @Component
 public class MetadataParserHelper {
 
-  private final List<String> ALLOWED_PARAMETERS = Arrays.asList("DocumentType", "SenderIdentification", "ReceiverIdentification", "Domain", "CreationDateTime", "GSKTimeInterval");
+  public final List<String> ALLOWED_PARAMETERS = Arrays.asList("DocumentType", "SenderIdentification", "ReceiverIdentification", "Domain", "CreationDateTime", "GSKTimeInterval");
 
-  public void fullMetadata(XMLStreamReader xmlStreamReader, Metadata metadata) {
+  public void fillingMetadata(XMLStreamReader xmlStreamReader, Metadata metadata) {
 
     switch (ALLOWED_PARAMETERS.indexOf(xmlStreamReader.getLocalName())) {
       case 0:
@@ -32,12 +33,16 @@ public class MetadataParserHelper {
         metadata.setCreationDateTime(ZonedDateTime.parse(xmlStreamReader.getAttributeValue(0)));
         break;
       case 5:
-        metadata.setTimeInterval(null);
+        metadata.setTimeInterval(getTimeIntervalFromFile(xmlStreamReader.getAttributeValue(0)));
         break;
       default:
         break;
     }
-
   }
 
+  private TimeInterval getTimeIntervalFromFile(String timeInterval) {
+    String from = timeInterval.split("/")[0];
+    String to = timeInterval.split("/")[1];
+    return new TimeInterval(ZonedDateTime.parse(from), ZonedDateTime.parse(to));
+  }
 }
