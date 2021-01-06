@@ -1,5 +1,6 @@
 package uu.datamanagement.main.abl.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 import uu.datamanagement.main.utils.TimeInterval;
 
@@ -16,6 +17,11 @@ public class AutoGSKBlock {
     this.gskName = gskName;
     this.timeInterval = timeInterval;
     this.autoNodes = autoNodes;
+  }
+
+  public AutoGSKBlock(String gskName) {
+    this.gskName = gskName;
+    this.autoNodes = new ArrayList<>();
   }
 
   public String getGskName() {

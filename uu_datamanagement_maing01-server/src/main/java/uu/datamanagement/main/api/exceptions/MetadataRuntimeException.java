@@ -9,7 +9,7 @@ import uu.datamanagement.main.validation.exception.ErrorDefinition;
 public class MetadataRuntimeException extends AppRuntimeException {
 
   public MetadataRuntimeException(MetadataRuntimeException.Error code, Map<String, ?> paramMap) {
-    super(code.getCode(), code.getMessage(), (AppErrorMap) null, paramMap, null);
+    super(code.getErrorCode(), code.getMessage(), (AppErrorMap) null, paramMap, null);
   }
 
   public enum Error implements ErrorDefinition {
@@ -26,7 +26,7 @@ public class MetadataRuntimeException extends AppRuntimeException {
       this.message = message;
     }
 
-    public ErrorCode getCode() {
+    public ErrorCode getErrorCode() {
       return code;
     }
 

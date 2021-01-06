@@ -18,4 +18,5 @@ public class AutoNode {
   public void setNodeName(String nodeName) {
     this.nodeName = nodeName;
   }
+
 }

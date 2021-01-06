@@ -1,5 +1,6 @@
 package uu.datamanagement.main.abl.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 import uu.datamanagement.main.utils.TimeInterval;
 
@@ -10,6 +11,11 @@ public class ManualGSKBlock {
   private List<ManualNode> manualNodes;
 
   public ManualGSKBlock() {
+  }
+
+  public ManualGSKBlock(String gskName) {
+    this.gskName = gskName;
+    manualNodes = new ArrayList<>();
   }
 
   public ManualGSKBlock(String gskName, TimeInterval timeInterval, List<ManualNode> manualNodes) {
@@ -41,4 +47,9 @@ public class ManualGSKBlock {
   public void setManualNodes(List<ManualNode> manualNodes) {
     this.manualNodes = manualNodes;
   }
+
+  public ManualNode getLastNode() {
+    return manualNodes.get(manualNodes.size() - 1);
+  }
+
 }

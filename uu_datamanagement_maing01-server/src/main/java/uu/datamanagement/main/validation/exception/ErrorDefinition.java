@@ -6,5 +6,6 @@ public interface ErrorDefinition {
 
   String getMessage();
 
-  ErrorCode getCode();
+  ErrorCode getErrorCode();
+
 }

@@ -10,6 +10,10 @@ public class CountryGSKBlock {
   public CountryGSKBlock() {
   }
 
+  public CountryGSKBlock(String gskName) {
+    this.gskName = gskName;
+  }
+
   public CountryGSKBlock(String gskName, TimeInterval timeInterval) {
     this.gskName = gskName;
     this.timeInterval = timeInterval;

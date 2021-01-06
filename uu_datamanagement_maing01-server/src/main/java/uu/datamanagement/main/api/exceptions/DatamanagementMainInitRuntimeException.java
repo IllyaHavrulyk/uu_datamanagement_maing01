@@ -9,7 +9,7 @@ import uu.datamanagement.main.validation.exception.ErrorDefinition;
 public final class DatamanagementMainInitRuntimeException extends AppRuntimeException {
 
   public DatamanagementMainInitRuntimeException(DatamanagementMainInitRuntimeException.Error code, Map<String, ?> paramMap) {
-    super(code.getCode(), code.getMessage(), (AppErrorMap) null, paramMap, null);
+    super(code.getErrorCode(), code.getMessage(), (AppErrorMap) null, paramMap, null);
   }
 
   public enum Error implements ErrorDefinition {
@@ -27,7 +27,7 @@ public final class DatamanagementMainInitRuntimeException extends AppRuntimeExce
       this.message = message;
     }
 
-    public ErrorCode getCode() {
+    public ErrorCode getErrorCode() {
       return code;
     }
 

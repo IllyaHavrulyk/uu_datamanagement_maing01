@@ -1,11 +1,17 @@
 package uu.datamanagement.main.abl.entity;
 
+import java.math.BigDecimal;
+
 public class ManualNode {
 
   private String nodeName;
-  private String factor;
+  private BigDecimal factor;
 
-  public ManualNode(String nodeName, String factor) {
+  public ManualNode(String nodeName) {
+    this.nodeName = nodeName;
+  }
+
+  public ManualNode(String nodeName, BigDecimal factor) {
     this.nodeName = nodeName;
     this.factor = factor;
   }
@@ -21,11 +27,11 @@ public class ManualNode {
     this.nodeName = nodeName;
   }
 
-  public String getFactor() {
+  public BigDecimal getFactor() {
     return factor;
   }
 
-  public void setFactor(String factor) {
+  public void setFactor(BigDecimal factor) {
     this.factor = factor;
   }
 }
