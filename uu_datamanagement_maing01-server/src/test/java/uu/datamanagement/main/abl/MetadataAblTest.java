@@ -4,16 +4,14 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.AllOf.allOf;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.when;
-import static uu.datamanagement.main.api.exceptions.MetadataRuntimeException.Error.INVALID_DTO_IN;
 
+import java.time.ZonedDateTime;
 import java.util.Arrays;
 import javax.inject.Inject;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -26,7 +24,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-import uu.app.testSupport.AppRuntimeExceptionMatcher;
 import uu.datamanagement.main.SubAppPersistenceConfiguration;
 import uu.datamanagement.main.abl.entity.Metadata;
 import uu.datamanagement.main.api.dto.MetadataDtoOut;
@@ -37,7 +34,8 @@ import uu.datamanagement.main.dao.MetadataDao;
 import uu.datamanagement.main.dao.mongo.MetadataMongoDao;
 import uu.datamanagement.main.helper.ValidationHelper;
 import uu.datamanagement.main.rules.ClearDatabaseRule;
-import uu.datamanagement.main.validation.exception.ValidationRuntimeException;
+import uu.datamanagement.main.utils.DocumentType;
+import uu.datamanagement.main.utils.TimeInterval;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -46,6 +44,8 @@ import uu.datamanagement.main.validation.exception.ValidationRuntimeException;
   MetadataAblTest.MetadataAblTestConfiguration.class
 })
 public class MetadataAblTest {
+
+  private final TimeInterval timeInterval = new TimeInterval(ZonedDateTime.parse("2019-02-19T23:00Z"), ZonedDateTime.parse("2019-02-20T23:00Z"));
 
   @Autowired
   @Rule
@@ -71,31 +71,58 @@ public class MetadataAblTest {
     assertThat(dtoOut.getItemList(), containsInAnyOrder(
       allOf(
         hasProperty("awid", is(clearDatabaseRule.getAwid())),
-        hasProperty("domain", is("test #0")),
+        hasProperty("domain", is("00Y1001C--00059P")),
         hasProperty("fileName", is("fileName test #0"))
       ),
       allOf(
         hasProperty("awid", is(clearDatabaseRule.getAwid())),
-        hasProperty("domain", is("test #1")),
+        hasProperty("domain", is("10Y1001C--00059P")),
         hasProperty("fileName", is("fileName test #1"))
       ),
       allOf(
         hasProperty("awid", is(clearDatabaseRule.getAwid())),
-        hasProperty("domain", is("test #2")),
+        hasProperty("domain", is("20Y1001C--00059P")),
         hasProperty("fileName", is("fileName test #2"))
       )
     ));
   }
 
-  private void prepareTestData(int count) {
+  @Test
+  public void testUpdateMetadata() {
+    String id = prepareTestData(1);
+
+    MetadataUpdateDtoIn dtoIn = new MetadataUpdateDtoIn();
+    dtoIn.setId(id);
+    dtoIn.setSender("UPDATE-SENDER-EIC");
+    dtoIn.setReceiver("UPDATE-RECEIVER-EIC");
+
+    MetadataDtoOut dtoOut = metadataAbl.update(clearDatabaseRule.getAwid(), dtoIn);
+
+    assertEquals(DocumentType.B22, dtoOut.getDocumentType());
+    assertEquals("UPDATE-SENDER-EIC", dtoOut.getSender());
+    assertEquals("UPDATE-RECEIVER-EIC", dtoOut.getReceiver());
+    assertEquals(timeInterval, dtoOut.getTimeInterval());
+    assertEquals(ZonedDateTime.parse("2019-02-13T09:30:00Z"), dtoOut.getCreationDateTime());
+    assertEquals("00Y1001C--00059P", dtoOut.getDomain());
+    assertEquals("fileName test #0", dtoOut.getFileName());
+  }
+
+  private String prepareTestData(int count) {
+    String lastMetadataId = "";
     for (int i = 0; i < count; i++) {
       Metadata metadata = new Metadata();
       metadata.setAwid(clearDatabaseRule.getAwid());
-      metadata.setDomain("test #" + i);
+      metadata.setDocumentType(DocumentType.B22);
+      metadata.setSender("SENDER-EIC-" + i);
+      metadata.setReceiver("RECEIVER-EIC-" + i);
+      metadata.setCreationDateTime(ZonedDateTime.parse("2019-02-13T09:30:00Z"));
+      metadata.setTimeInterval(timeInterval);
+      metadata.setDomain(i + "0Y1001C--00059P");
       metadata.setFileName("fileName test #" + i);
 
-      metadataDao.create(metadata);
+      lastMetadataId = metadataDao.create(metadata).getId();
     }
+    return lastMetadataId;
   }
 
   @Configuration
@@ -123,7 +150,7 @@ public class MetadataAblTest {
 
     @Bean
     ModelMapper modelMapper() {
-      return Mockito.mock(ModelMapper.class);
+      return new ModelMapper();
     }
   }
 }

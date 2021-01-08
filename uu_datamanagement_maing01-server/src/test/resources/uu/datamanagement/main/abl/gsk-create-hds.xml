@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<GSKDocument>
+	<DocumentIdentification v="10XAT-APG------Z-20190220-F103-v1"/>
+	<DocumentType v="B22"/>
+	<SenderIdentification codingScheme="A01" v="10XAT-APG------Z"/>
+	<ReceiverIdentification codingScheme="A01" v="17XTSO-CS------W"/>
+	<CreationDateTime v="2019-02-13T09:30:00Z"/>
+	<GSKTimeInterval v="2019-02-19T23:00Z/2019-02-20T23:00Z"/>
+	<Domain codingScheme="A01" v="10Y1001C--00059P"/>
+	<GSKSeries>
+		<TimeSeriesIdentification v="1"/>
+		<BusinessType share="100.000" v="Z02"/>
+		<Area codingScheme="A01" v="10YAT-APG------L"/>
+		<ManualGSK_Block>
+			<GSK_Name v="AT"/>
+			<TimeInterval v="2019-02-19T23:00Z/2019-02-20T23:00Z"/>
+			<ManualNodes>
+				<NodeName v="OKAPRU11"/>
+				<Factor v="0.0641"/>
+			</ManualNodes>
+			<ManualNodes>
+				<NodeName v="OLIMBG11"/>
+				<Factor v="0.0681"/>
+			</ManualNodes>
+			<ManualNodes>
+				<NodeName v="OMALTA21"/>
+				<Factor v="0.1196"/>
+			</ManualNodes>
+		</ManualGSK_Block>
+	</GSKSeries>
+</GSKDocument>

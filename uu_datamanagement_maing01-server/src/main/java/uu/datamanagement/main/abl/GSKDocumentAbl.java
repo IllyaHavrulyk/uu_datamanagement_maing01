@@ -2,6 +2,7 @@ package uu.datamanagement.main.abl;
 
 import java.io.IOException;
 import javax.inject.Inject;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import uu.datamanagement.main.abl.entity.GSKDocument;
 import uu.datamanagement.main.abl.entity.Metadata;
@@ -19,12 +20,14 @@ public class GSKDocumentAbl {
   private final GSKDocumentDao gskDocumentDao;
   private final MetadataDao metadataDao;
   private final ValidationHelper validationHelper;
+  private final ModelMapper modelMapper;
 
   @Inject
-  public GSKDocumentAbl(GSKDocumentDao gskDocumentDao, MetadataDao metadataDao, ValidationHelper validationHelper) {
+  public GSKDocumentAbl(GSKDocumentDao gskDocumentDao, MetadataDao metadataDao, ValidationHelper validationHelper, ModelMapper modelMapper) {
     this.gskDocumentDao = gskDocumentDao;
     this.metadataDao = metadataDao;
     this.validationHelper = validationHelper;
+    this.modelMapper = modelMapper;
   }
 
   public GSKDocumentDtoOut create(String awid, GSKDocumentDtoIn dtoIn) {
@@ -49,7 +52,7 @@ public class GSKDocumentAbl {
     document.setAwid(awid);
     gskDocumentDao.create(document);
 
-    return new GSKDocumentDtoOut();
+    return modelMapper.map(document, GSKDocumentDtoOut.class);
   }
 
 }
