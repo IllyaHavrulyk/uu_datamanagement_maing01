@@ -10,7 +10,7 @@ public class ClearDatabaseRule extends ExternalResource {
 
   protected String awid = "11111111111111111111111111111123";
 
-  private List<UuDataEntityDao> daos;
+  private final List<UuDataEntityDao> daos;
 
   public ClearDatabaseRule(List<UuDataEntityDao> daos) {
     this.daos = daos;

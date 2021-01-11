@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<GSKDocument>
+  <DocumentIdentification v="ID1" />
+  <DocumentVersion v="1" />
+  <DocumentType v="B22" />
+  <ProcessType v="Z02" />
+  <SenderIdentification codingScheme="A01" v="SENDER-EIC" />
+  <SenderRole v="A36" />
+  <ReceiverIdentification codingScheme="A01" v="RECEIVER-EIC" />
+  <ReceiverRole v="A04" />
+  <CreationDateTime v="2019-02-13T09:30:00Z" />
+  <GSKTimeInterval v="2019-02-19T23:00Z/2019-02-20T23:00Z" />
+  <Domain codingScheme="A01" v="10Y1001C--00059P" />
+</GSKDocument>

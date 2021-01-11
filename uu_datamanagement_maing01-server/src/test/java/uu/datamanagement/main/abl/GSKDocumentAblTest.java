@@ -1,14 +1,17 @@
 package uu.datamanagement.main.abl;
 
 import static org.junit.Assert.*;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 import javax.inject.Inject;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.modelmapper.ModelMapper;
@@ -20,16 +23,23 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+import uu.app.exception.ErrorType;
+import uu.app.validation.ValidationErrorType;
+import uu.app.validation.Validator;
+import uu.app.validation.internal.ValidatorImpl;
+import uu.app.validation.spi.DefaultValidationResult;
 import uu.datamanagement.main.SubAppPersistenceConfiguration;
-import uu.datamanagement.main.abl.entity.GSKDocument;
 import uu.datamanagement.main.api.dto.GSKDocumentDtoIn;
 import uu.datamanagement.main.api.dto.GSKDocumentDtoOut;
+import uu.datamanagement.main.api.exceptions.GSKDocumentRuntimeException;
+import uu.datamanagement.main.api.exceptions.GSKDocumentRuntimeException.Error;
 import uu.datamanagement.main.dao.GSKDocumentDao;
 import uu.datamanagement.main.dao.MetadataDao;
 import uu.datamanagement.main.dao.mongo.GSKDocumentMongoDao;
 import uu.datamanagement.main.dao.mongo.MetadataMongoDao;
 import uu.datamanagement.main.helper.ValidationHelper;
 import uu.datamanagement.main.rules.ClearDatabaseRule;
+import uu.datamanagement.main.validation.exception.ValidationRuntimeException;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -43,13 +53,23 @@ public class GSKDocumentAblTest {
   @Rule
   public ClearDatabaseRule clearDatabaseRule;
 
+  @Rule
+  public ExpectedException exceptionRule = ExpectedException.none();
+
   @Inject
   private GSKDocumentAbl gskDocumentAbl;
+
+  @Inject
+  private ValidationHelper validationHelper;
+
+  @Inject
+  private Validator validator;
 
   @Test
   public void testCreateGSKDocument() {
     GSKDocumentDtoIn dtoIn = generateGSKDocumentDtoIn();
 
+    when(validator.validate(dtoIn)).thenReturn(new DefaultValidationResult());
     GSKDocumentDtoOut dtoOut = gskDocumentAbl.create(clearDatabaseRule.getAwid(), dtoIn);
 
     assertNotNull(dtoOut.getMetadataId());
@@ -57,6 +77,18 @@ public class GSKDocumentAblTest {
     assertEquals(1, dtoOut.getGskSeries().size());
     assertEquals("10YAT-APG------L", dtoOut.getGskSeries().get(0).getArea());
     assertEquals(3, dtoOut.getGskSeries().get(0).getLastManualBlock().getManualNodes().size());
+  }
+
+  @Test(expected = ValidationRuntimeException.class)
+  public void invalidGSKDocumentDtoIn() {
+    GSKDocumentDtoIn dtoIn = new GSKDocumentDtoIn();
+
+    DefaultValidationResult validationResult = new DefaultValidationResult();
+    validationResult.addError(ValidationErrorType.MISSING_KEY, Error.INVALID_DTO_IN);
+
+    when(validator.validate(dtoIn)).thenReturn((validationResult));
+
+    gskDocumentAbl.create(clearDatabaseRule.getAwid(), dtoIn);
   }
 
   private GSKDocumentDtoIn generateGSKDocumentDtoIn() {
@@ -94,7 +126,12 @@ public class GSKDocumentAblTest {
 
     @Bean
     ValidationHelper validationHelper() {
-      return Mockito.mock(ValidationHelper.class);
+      return new ValidationHelper(validator());
+    }
+
+    @Bean
+    Validator validator() {
+      return Mockito.mock(Validator.class);
     }
 
     @Bean

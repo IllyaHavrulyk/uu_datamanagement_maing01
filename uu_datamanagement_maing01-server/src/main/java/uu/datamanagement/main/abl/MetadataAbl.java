@@ -46,7 +46,6 @@ public class MetadataAbl {
     // check moderation phase
 
     validationHelper.validateDtoIn(dtoIn, Error.INVALID_DTO_IN);
-    AppErrorMap errorMap = new AppErrorMap();
 
     Metadata metadata = metadataDao.getById(awid, dtoIn.getId())
       .orElseThrow(() -> new MetadataRuntimeException(Error.GET_METADATA_FAILED, Collections.singletonMap("id", dtoIn.getId())));

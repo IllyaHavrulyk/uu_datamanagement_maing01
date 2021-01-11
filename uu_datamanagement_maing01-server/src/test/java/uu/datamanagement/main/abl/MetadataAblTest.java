@@ -5,7 +5,6 @@ import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.AllOf.allOf;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
 import java.time.ZonedDateTime;
@@ -30,6 +29,7 @@ import uu.datamanagement.main.api.dto.MetadataDtoOut;
 import uu.datamanagement.main.api.dto.MetadataListDtoIn;
 import uu.datamanagement.main.api.dto.MetadataListDtoOut;
 import uu.datamanagement.main.api.dto.MetadataUpdateDtoIn;
+import uu.datamanagement.main.api.exceptions.MetadataRuntimeException;
 import uu.datamanagement.main.dao.MetadataDao;
 import uu.datamanagement.main.dao.mongo.MetadataMongoDao;
 import uu.datamanagement.main.helper.ValidationHelper;
@@ -105,6 +105,16 @@ public class MetadataAblTest {
     assertEquals(ZonedDateTime.parse("2019-02-13T09:30:00Z"), dtoOut.getCreationDateTime());
     assertEquals("00Y1001C--00059P", dtoOut.getDomain());
     assertEquals("fileName test #0", dtoOut.getFileName());
+  }
+
+  @Test(expected = MetadataRuntimeException.class)
+  public void failedTestUpdateMetadata() {
+    MetadataUpdateDtoIn dtoIn = new MetadataUpdateDtoIn();
+    dtoIn.setId("FAILED-ID");
+    dtoIn.setSender("UPDATE-SENDER-EIC");
+    dtoIn.setReceiver("UPDATE-RECEIVER-EIC");
+
+    metadataAbl.update(clearDatabaseRule.getAwid(), dtoIn);
   }
 
   private String prepareTestData(int count) {

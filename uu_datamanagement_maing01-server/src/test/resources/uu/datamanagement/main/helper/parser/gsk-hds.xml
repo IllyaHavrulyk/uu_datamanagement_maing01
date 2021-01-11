@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <GSKDocument xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-<DocumentIdentification v="ID1" />
+  <DocumentIdentification v="ID1" />
   <DocumentVersion v="1" />
   <DocumentType v="B22" />
   <ProcessType v="Z02" />

@@ -2,6 +2,7 @@ package uu.datamanagement.main.helper.parser;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,6 +15,7 @@ import uu.datamanagement.main.abl.entity.GSKDocument;
 import uu.datamanagement.main.abl.entity.GSKSeries;
 import uu.datamanagement.main.abl.entity.ManualGSKBlock;
 import uu.datamanagement.main.abl.entity.Metadata;
+import uu.datamanagement.main.api.exceptions.DeserializationException;
 import uu.datamanagement.main.utils.BusinessType;
 import uu.datamanagement.main.utils.DocumentType;
 import uu.datamanagement.main.utils.TimeInterval;
@@ -71,4 +73,27 @@ public class GskDocumentParserTest {
     assertEquals(timeInterval, metadata.getTimeInterval());
     assertEquals("10Y1001C--00059P", metadata.getDomain());
   }
+
+  @Test
+  public void noDataSeries() throws IOException {
+    GSKDocument data;
+
+    try (InputStream input = this.getClass().getResourceAsStream("gsk-noSeries.xml")) {
+      data = parser.process(input);
+      data.setGskSeries(parser.getSeriesList());
+    }
+
+    assertTrue(data.getGskSeries().isEmpty());
+  }
+
+  @Test(expected = DeserializationException.class)
+  public void deserializationFailed() throws IOException {
+    GSKDocument data;
+
+    try (InputStream input = this.getClass().getResourceAsStream("no-file.xml")) {
+      data = parser.process(input);
+      data.setGskSeries(parser.getSeriesList());
+    }
+  }
+
 }

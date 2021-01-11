@@ -1,6 +1,5 @@
 package uu.datamanagement.main.api.exceptions;
 
-import javax.xml.stream.XMLStreamException;
 import uu.app.exception.AppErrorMap;
 import uu.app.exception.AppRuntimeException;
 import uu.app.exception.ErrorCode;
@@ -18,9 +17,9 @@ public class DeserializationException extends AppRuntimeException {
 
     DESERIALIZATION_FAILED(ErrorCode.application(ERROR_PREFIX + "deserializationFailed"), "Deserialization failed.");
 
-    private ErrorCode code;
+    private final ErrorCode code;
 
-    private String message;
+    private final String message;
 
     Error(ErrorCode code, String message) {
       this.code = code;
@@ -35,7 +34,6 @@ public class DeserializationException extends AppRuntimeException {
     public ErrorCode getErrorCode() {
       return code;
     }
-
 
 
   }
