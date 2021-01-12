@@ -6,6 +6,7 @@ import uu.datamanagement.main.abl.entity.GSKSeries;
 
 public class GSKDocumentDtoOut extends AbstractDtoOut {
 
+  private String id;
   private String documentIdentification;
   private String metadataId;
   private List<GSKSeries> gskSeries;
@@ -35,5 +36,13 @@ public class GSKDocumentDtoOut extends AbstractDtoOut {
 
   public void setGskSeries(List<GSKSeries> gskSeries) {
     this.gskSeries = gskSeries;
+  }
+
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
   }
 }

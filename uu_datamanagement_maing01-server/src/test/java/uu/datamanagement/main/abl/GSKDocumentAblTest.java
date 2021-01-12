@@ -23,15 +23,12 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-import uu.app.exception.ErrorType;
 import uu.app.validation.ValidationErrorType;
 import uu.app.validation.Validator;
-import uu.app.validation.internal.ValidatorImpl;
 import uu.app.validation.spi.DefaultValidationResult;
 import uu.datamanagement.main.SubAppPersistenceConfiguration;
 import uu.datamanagement.main.api.dto.GSKDocumentDtoIn;
 import uu.datamanagement.main.api.dto.GSKDocumentDtoOut;
-import uu.datamanagement.main.api.exceptions.GSKDocumentRuntimeException;
 import uu.datamanagement.main.api.exceptions.GSKDocumentRuntimeException.Error;
 import uu.datamanagement.main.dao.GSKDocumentDao;
 import uu.datamanagement.main.dao.MetadataDao;
@@ -39,6 +36,7 @@ import uu.datamanagement.main.dao.mongo.GSKDocumentMongoDao;
 import uu.datamanagement.main.dao.mongo.MetadataMongoDao;
 import uu.datamanagement.main.helper.ValidationHelper;
 import uu.datamanagement.main.rules.ClearDatabaseRule;
+import uu.datamanagement.main.serde.GSKDocumentBuilder;
 import uu.datamanagement.main.validation.exception.ValidationRuntimeException;
 
 @RunWith(SpringRunner.class)
@@ -111,7 +109,7 @@ public class GSKDocumentAblTest {
 
     @Bean
     GSKDocumentAbl gskDocumentAbl() {
-      return new GSKDocumentAbl(gskDocumentDao(), metadataDao(), validationHelper(), modelMapper());
+      return new GSKDocumentAbl(gskDocumentDao(), metadataDao(), validationHelper(), modelMapper(), gskDocumentBuilder());
     }
 
     @Bean
@@ -142,6 +140,11 @@ public class GSKDocumentAblTest {
     @Bean
     ClearDatabaseRule clearDatabaseRule() {
       return new ClearDatabaseRule(Arrays.asList(metadataDao(), gskDocumentDao()));
+    }
+
+    @Bean
+    GSKDocumentBuilder gskDocumentBuilder() {
+      return Mockito.mock(GSKDocumentBuilder.class);
     }
 
   }

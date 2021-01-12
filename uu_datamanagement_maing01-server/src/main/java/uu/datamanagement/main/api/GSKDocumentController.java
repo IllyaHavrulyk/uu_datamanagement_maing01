@@ -9,6 +9,8 @@ import uu.app.server.annotation.CommandController;
 import uu.datamanagement.main.abl.GSKDocumentAbl;
 import uu.datamanagement.main.api.dto.GSKDocumentDtoIn;
 import uu.datamanagement.main.api.dto.GSKDocumentDtoOut;
+import uu.datamanagement.main.api.dto.GSKDocumentExportDtoOut;
+import uu.datamanagement.main.api.dto.GSKDoumentExportDtoIn;
 
 @CommandController
 public class GSKDocumentController {
@@ -25,5 +27,9 @@ public class GSKDocumentController {
     return gskDocumentAbl.create(ctx.getUri().getAwid(), ctx.getDtoIn());
   }
 
+  @Command(path = "/export", method = RequestMethod.GET)
+  public GSKDocumentExportDtoOut export(CommandContext<GSKDoumentExportDtoIn> ctx) {
+    return gskDocumentAbl.export(ctx.getUri().getAwid(), ctx.getDtoIn());
+  }
 
 }

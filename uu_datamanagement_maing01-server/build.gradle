@@ -18,6 +18,7 @@ configurations {
 dependencies {
   compile "uu.appg01:uu_appg01_server:${uuAppg01ServerVersion}"
   compile "org.modelmapper:modelmapper"
+  compile group: 'org.freemarker', name: 'freemarker', version: '2.3.30'
 
   testCompile "uu.appg01:uu_appg01_core-test_support:${uuAppg01ServerVersion}"
 }

@@ -25,5 +25,4 @@ public class ClearStorageController {
     return clearStorageAbl.clean(ctx.getUri().getAwid(), ctx.getDtoIn());
   }
 
-
 }

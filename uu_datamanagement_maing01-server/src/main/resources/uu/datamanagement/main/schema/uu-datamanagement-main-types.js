@@ -26,3 +26,10 @@ const gskDocumentDtoInType = shape({
   text: string(500),
   document: binary().isRequired()
 })
+
+const gskDoumentExportDtoInType = shape({
+  pageInfo: shape({
+    pageIndex: integer(),
+    pageSize: integer()
+  })
+})

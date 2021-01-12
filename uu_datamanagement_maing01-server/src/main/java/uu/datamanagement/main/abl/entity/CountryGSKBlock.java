@@ -1,22 +1,34 @@
 package uu.datamanagement.main.abl.entity;
 
+import java.util.ArrayList;
+import java.util.List;
 import uu.datamanagement.main.utils.TimeInterval;
 
 public class CountryGSKBlock {
 
   private String gskName;
   private TimeInterval timeInterval;
+  private List<CountryNode> countryNodes;
 
   public CountryGSKBlock() {
   }
 
   public CountryGSKBlock(String gskName) {
     this.gskName = gskName;
+    this.countryNodes = new ArrayList<>();
   }
 
   public CountryGSKBlock(String gskName, TimeInterval timeInterval) {
     this.gskName = gskName;
     this.timeInterval = timeInterval;
+  }
+
+  public List<CountryNode> getCountryNodes() {
+    return countryNodes;
+  }
+
+  public void setCountryNodes(List<CountryNode> countryNodes) {
+    this.countryNodes = countryNodes;
   }
 
   public String getGskName() {
