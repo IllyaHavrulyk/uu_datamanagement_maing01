@@ -10,8 +10,8 @@ import javax.xml.stream.events.Attribute;
 import javax.xml.stream.events.Characters;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
-import uu.datamanagement.main.api.exceptions.DeserializationException;
-import uu.datamanagement.main.api.exceptions.DeserializationException.Error;
+import uu.datamanagement.main.helper.exception.GskDocumentParserException;
+import uu.datamanagement.main.helper.exception.GskDocumentParserException.Error;
 
 public abstract class AbstractXmlParser<T> {
 
@@ -27,7 +27,7 @@ public abstract class AbstractXmlParser<T> {
       XMLEventReader reader = XmlSupport.getXmlEventReader(inputStream);
       return process(reader);
     } catch (XMLStreamException e) {
-      throw new DeserializationException(Error.DESERIALIZATION_FAILED, e.getMessage());
+      throw new GskDocumentParserException(Error.DESERIALIZATION_FAILED, e.getMessage());
     } finally {
       afterProcess();
     }

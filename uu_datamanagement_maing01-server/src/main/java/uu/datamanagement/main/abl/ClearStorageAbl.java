@@ -5,8 +5,8 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Component;
 import uu.datamanagement.main.api.dto.ClearStorageDtoIn;
 import uu.datamanagement.main.api.dto.ClearStorageDtoOut;
-import uu.datamanagement.main.api.exceptions.DatamanagementMainInitRuntimeException.Error;
-import uu.datamanagement.main.dao.GSKDocumentDao;
+import uu.datamanagement.main.api.exceptions.ClearStorageException.Error;
+import uu.datamanagement.main.dao.GskDocumentDao;
 import uu.datamanagement.main.dao.MetadataDao;
 import uu.datamanagement.main.helper.ValidationHelper;
 
@@ -14,11 +14,11 @@ import uu.datamanagement.main.helper.ValidationHelper;
 public class ClearStorageAbl {
 
   private final MetadataDao metadataDao;
-  private final GSKDocumentDao gskDocumentDao;
+  private final GskDocumentDao gskDocumentDao;
   private final ValidationHelper validationHelper;
 
   @Inject
-  public ClearStorageAbl(MetadataDao metadataDao, GSKDocumentDao gskDocumentDao, ValidationHelper validationHelper) {
+  public ClearStorageAbl(MetadataDao metadataDao, GskDocumentDao gskDocumentDao, ValidationHelper validationHelper) {
     this.metadataDao = metadataDao;
     this.gskDocumentDao = gskDocumentDao;
     this.validationHelper = validationHelper;

@@ -5,7 +5,7 @@ import uu.app.dto.AbstractDtoOut;
 import uu.datamanagement.main.utils.DocumentType;
 import uu.datamanagement.main.utils.TimeInterval;
 
-public class MetadataDtoOut extends AbstractDtoOut {
+public class MetadataUpdateDtoOut extends AbstractDtoOut {
 
   private DocumentType documentType;
   private String sender;

@@ -9,13 +9,13 @@ import java.io.InputStream;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import org.junit.Test;
-import uu.datamanagement.main.abl.entity.AutoGSKBlock;
-import uu.datamanagement.main.abl.entity.CountryGSKBlock;
-import uu.datamanagement.main.abl.entity.GSKDocument;
-import uu.datamanagement.main.abl.entity.GSKSeries;
-import uu.datamanagement.main.abl.entity.ManualGSKBlock;
+import uu.datamanagement.main.abl.entity.AutoGskBlock;
+import uu.datamanagement.main.abl.entity.CountryGskBlock;
+import uu.datamanagement.main.abl.entity.GskDocument;
+import uu.datamanagement.main.abl.entity.GskSeries;
+import uu.datamanagement.main.abl.entity.ManualGskBlock;
 import uu.datamanagement.main.abl.entity.Metadata;
-import uu.datamanagement.main.api.exceptions.DeserializationException;
+import uu.datamanagement.main.helper.exception.GskDocumentParserException;
 import uu.datamanagement.main.utils.BusinessType;
 import uu.datamanagement.main.utils.DocumentType;
 import uu.datamanagement.main.utils.TimeInterval;
@@ -27,7 +27,7 @@ public class GskDocumentParserTest {
 
   @Test
   public void testHds() throws IOException {
-    GSKDocument data;
+    GskDocument data;
     Metadata metadata;
 
     try (InputStream input = this.getClass().getResourceAsStream("gsk-hds.xml")) {
@@ -40,12 +40,12 @@ public class GskDocumentParserTest {
     assertEquals("ID1", data.getDocumentIdentification());
 
     assertEquals(1, data.getGskSeries().size());
-    GSKSeries series = data.getGskSeries().get(0);
+    GskSeries series = data.getGskSeries().get(0);
     assertEquals(BusinessType.Z02, series.getBusinessType());
     assertEquals("ABC", series.getArea());
     assertEquals(1, series.getManualGSKBlock().size());
 
-    ManualGSKBlock manualBlock = series.getLastManualBlock();
+    ManualGskBlock manualBlock = series.getLastManualBlock();
     assertEquals("ManualBlock1", manualBlock.getGskName());
     assertEquals(timeInterval, manualBlock.getTimeInterval());
     assertEquals(2, manualBlock.getManualNodes().size());
@@ -53,12 +53,12 @@ public class GskDocumentParserTest {
     assertEquals(BigDecimal.valueOf(0.536), manualBlock.getManualNodes().get(0).getFactor());
 
     assertEquals(1, series.getCountryGSKBlock().size());
-    CountryGSKBlock countryBlock = series.getLastCountryBlock();
+    CountryGskBlock countryBlock = series.getLastCountryBlock();
     assertEquals("CountryBlock1", countryBlock.getGskName());
     assertEquals(timeInterval, countryBlock.getTimeInterval());
     assertEquals(1, series.getAutoGSKBlocks().size());
 
-    AutoGSKBlock autoBlock = series.getLastAutoBlock();
+    AutoGskBlock autoBlock = series.getLastAutoBlock();
     assertEquals("AutoBlock1", autoBlock.getGskName());
     assertEquals(timeInterval, autoBlock.getTimeInterval());
     assertEquals(2, autoBlock.getAutoNodes().size());
@@ -76,7 +76,7 @@ public class GskDocumentParserTest {
 
   @Test
   public void noDataSeries() throws IOException {
-    GSKDocument data;
+    GskDocument data;
 
     try (InputStream input = this.getClass().getResourceAsStream("gsk-noSeries.xml")) {
       data = parser.process(input);
@@ -86,9 +86,9 @@ public class GskDocumentParserTest {
     assertTrue(data.getGskSeries().isEmpty());
   }
 
-  @Test(expected = DeserializationException.class)
+  @Test(expected = GskDocumentParserException.class)
   public void deserializationFailed() throws IOException {
-    GSKDocument data;
+    GskDocument data;
 
     try (InputStream input = this.getClass().getResourceAsStream("no-file.xml")) {
       data = parser.process(input);

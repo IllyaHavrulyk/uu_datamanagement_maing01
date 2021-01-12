@@ -3,11 +3,11 @@ package uu.datamanagement.main.api.dto;
 import java.util.List;
 import uu.app.dto.AbstractDtoOut;
 
-public class GSKDocumentExportDtoOut extends AbstractDtoOut {
+public class GskDocumentExportDtoOut extends AbstractDtoOut {
 
   private List<Byte> byteList;
 
-  public GSKDocumentExportDtoOut() {
+  public GskDocumentExportDtoOut() {
   }
 
   public List<Byte> getByteList() {

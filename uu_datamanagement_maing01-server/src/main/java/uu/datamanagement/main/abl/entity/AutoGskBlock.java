@@ -2,18 +2,19 @@ package uu.datamanagement.main.abl.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import uu.datamanagement.main.utils.TimeInterval;
 
-public class AutoGSKBlock {
+public class AutoGskBlock {
 
   private String gskName;
   private TimeInterval timeInterval;
   private List<AutoNode> autoNodes;
 
-  public AutoGSKBlock() {
+  public AutoGskBlock() {
   }
 
-  public AutoGSKBlock(String gskName) {
+  public AutoGskBlock(String gskName) {
     this.gskName = gskName;
     this.autoNodes = new ArrayList<>();
   }
@@ -40,5 +41,14 @@ public class AutoGSKBlock {
 
   public void setAutoNodes(List<AutoNode> autoNodes) {
     this.autoNodes = autoNodes;
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringBuilder(this)
+      .append("gskName", gskName)
+      .append("timeInterval", timeInterval)
+      .append("autoNodes", autoNodes)
+      .toString();
   }
 }

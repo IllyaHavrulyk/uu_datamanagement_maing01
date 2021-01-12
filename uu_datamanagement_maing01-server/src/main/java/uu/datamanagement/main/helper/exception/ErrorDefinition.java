@@ -1,4 +1,4 @@
-package uu.datamanagement.main.validation.exception;
+package uu.datamanagement.main.helper.exception;
 
 import uu.app.exception.ErrorCode;
 

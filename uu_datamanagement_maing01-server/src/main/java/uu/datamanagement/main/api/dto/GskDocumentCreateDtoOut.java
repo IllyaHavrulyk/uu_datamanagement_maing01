@@ -1,17 +1,15 @@
 package uu.datamanagement.main.api.dto;
 
-import java.util.List;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import uu.app.dto.AbstractDtoOut;
-import uu.datamanagement.main.abl.entity.GSKSeries;
 
-public class GSKDocumentDtoOut extends AbstractDtoOut {
+public class GskDocumentCreateDtoOut extends AbstractDtoOut {
 
   private String id;
   private String documentIdentification;
   private String metadataId;
-  private List<GSKSeries> gskSeries;
 
-  public GSKDocumentDtoOut() {
+  public GskDocumentCreateDtoOut() {
   }
 
   public String getDocumentIdentification() {
@@ -30,19 +28,20 @@ public class GSKDocumentDtoOut extends AbstractDtoOut {
     this.metadataId = metadataId;
   }
 
-  public List<GSKSeries> getGskSeries() {
-    return gskSeries;
-  }
-
-  public void setGskSeries(List<GSKSeries> gskSeries) {
-    this.gskSeries = gskSeries;
-  }
-
   public String getId() {
     return id;
   }
 
   public void setId(String id) {
     this.id = id;
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringBuilder(this)
+      .append("id", id)
+      .append("documentIdentification", documentIdentification)
+      .append("metadataId", metadataId)
+      .toString();
   }
 }

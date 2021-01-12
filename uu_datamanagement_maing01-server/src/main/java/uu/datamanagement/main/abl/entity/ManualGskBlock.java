@@ -2,18 +2,19 @@ package uu.datamanagement.main.abl.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import uu.datamanagement.main.utils.TimeInterval;
 
-public class ManualGSKBlock {
+public class ManualGskBlock {
 
   private String gskName;
   private TimeInterval timeInterval;
   private List<ManualNode> manualNodes;
 
-  public ManualGSKBlock() {
+  public ManualGskBlock() {
   }
 
-  public ManualGSKBlock(String gskName) {
+  public ManualGskBlock(String gskName) {
     this.gskName = gskName;
     manualNodes = new ArrayList<>();
   }
@@ -46,4 +47,12 @@ public class ManualGSKBlock {
     return manualNodes.get(manualNodes.size() - 1);
   }
 
+  @Override
+  public String toString() {
+    return new ToStringBuilder(this)
+      .append("gskName", gskName)
+      .append("timeInterval", timeInterval)
+      .append("manualNodes", manualNodes)
+      .toString();
+  }
 }

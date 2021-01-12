@@ -6,7 +6,6 @@ import uu.app.exception.AppRuntimeException;
 import uu.app.exception.ErrorCode;
 import uu.app.validation.ValidationError;
 import uu.app.validation.ValidationErrorSeverity;
-import uu.datamanagement.main.validation.exception.ErrorDefinition;
 
 public final class DatamanagementMainInitRuntimeException extends AppRuntimeException {
 

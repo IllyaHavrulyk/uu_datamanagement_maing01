@@ -17,13 +17,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import uu.datamanagement.main.SubAppPersistenceConfiguration;
-import uu.datamanagement.main.abl.entity.GSKDocument;
+import uu.datamanagement.main.abl.entity.GskDocument;
 import uu.datamanagement.main.abl.entity.Metadata;
 import uu.datamanagement.main.api.dto.ClearStorageDtoIn;
 import uu.datamanagement.main.api.dto.ClearStorageDtoOut;
-import uu.datamanagement.main.dao.GSKDocumentDao;
+import uu.datamanagement.main.dao.GskDocumentDao;
 import uu.datamanagement.main.dao.MetadataDao;
-import uu.datamanagement.main.dao.mongo.GSKDocumentMongoDao;
+import uu.datamanagement.main.dao.mongo.GskDocumentMongoDao;
 import uu.datamanagement.main.dao.mongo.MetadataMongoDao;
 import uu.datamanagement.main.helper.ValidationHelper;
 import uu.datamanagement.main.rules.ClearDatabaseRule;
@@ -47,7 +47,7 @@ public class ClearStorageAblTest {
   private MetadataDao metadataDao;
 
   @Inject
-  private GSKDocumentDao gskDocumentDao;
+  private GskDocumentDao gskDocumentDao;
 
   @Rule
   public ExpectedException thrown = ExpectedException.none();
@@ -77,7 +77,7 @@ public class ClearStorageAblTest {
 
       metadata = metadataDao.create(metadata);
 
-      GSKDocument gskDocument = new GSKDocument();
+      GskDocument gskDocument = new GskDocument();
       gskDocument.setAwid(clearDatabaseRule.getAwid());
       gskDocument.setMetadataId(metadata.getId());
       gskDocument.setDocumentIdentification("10XAT-APG------Z-20190220-F103-v" + i);
@@ -105,8 +105,8 @@ public class ClearStorageAblTest {
     }
 
     @Bean
-    GSKDocumentDao gskDocumentDao() {
-      return new GSKDocumentMongoDao();
+    GskDocumentDao gskDocumentDao() {
+      return new GskDocumentMongoDao();
     }
 
     @Bean

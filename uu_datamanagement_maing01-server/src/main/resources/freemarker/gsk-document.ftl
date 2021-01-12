@@ -11,7 +11,7 @@
   <#if gskDocument.gskSeries?has_content>
   <#list gskDocument.gskSeries as seria>
   <GSKSeries>
-    <TimeSeriesIdentification v="1"/>
+    <TimeSeriesIdentification v="${seria.timeSeriesId}"/>
     <BusinessType v="${seria.businessType}"/>
     <Area v="${seria.area}"/>
     <#if seria.manualGSKBlock?has_content>
@@ -45,8 +45,8 @@
     </CountryGSK_Block>
     </#list>
     </#if>
-    <#if seria.autoGSKBlocks?has_content>
-    <#list seria.autoGSKBlocks as autoBlock>
+    <#if seria.autoGskBlocks?has_content>
+    <#list seria.autoGskBlocks as autoBlock>
     <AutoGSK_Block>
       <GSK_Name v="${autoBlock.gskName}"/>
       <TimeInterval v="${autoBlock.timeInterval}"/>

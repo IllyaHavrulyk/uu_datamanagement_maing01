@@ -4,11 +4,11 @@ import uu.app.datastore.domain.PageInfo;
 import uu.app.validation.ValidationType;
 
 @ValidationType("gskDoumentExportDtoInType")
-public class GSKDoumentExportDtoIn {
+public class GskDoumentExportDtoIn {
 
   private PageInfo pageInfo;
 
-  public GSKDoumentExportDtoIn() {
+  public GskDoumentExportDtoIn() {
   }
 
   public PageInfo getPageInfo() {

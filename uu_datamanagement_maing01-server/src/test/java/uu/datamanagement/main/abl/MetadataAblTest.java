@@ -25,7 +25,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import uu.datamanagement.main.SubAppPersistenceConfiguration;
 import uu.datamanagement.main.abl.entity.Metadata;
-import uu.datamanagement.main.api.dto.MetadataDtoOut;
+import uu.datamanagement.main.api.dto.MetadataUpdateDtoOut;
 import uu.datamanagement.main.api.dto.MetadataListDtoIn;
 import uu.datamanagement.main.api.dto.MetadataListDtoOut;
 import uu.datamanagement.main.api.dto.MetadataUpdateDtoIn;
@@ -96,7 +96,7 @@ public class MetadataAblTest {
     dtoIn.setSender("UPDATE-SENDER-EIC");
     dtoIn.setReceiver("UPDATE-RECEIVER-EIC");
 
-    MetadataDtoOut dtoOut = metadataAbl.update(clearDatabaseRule.getAwid(), dtoIn);
+    MetadataUpdateDtoOut dtoOut = metadataAbl.update(clearDatabaseRule.getAwid(), dtoIn);
 
     assertEquals(DocumentType.B22, dtoOut.getDocumentType());
     assertEquals("UPDATE-SENDER-EIC", dtoOut.getSender());

@@ -1,5 +1,7 @@
 package uu.datamanagement.main.abl.entity;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 public class CountryNode {
 
   private String nodeName;
@@ -17,5 +19,12 @@ public class CountryNode {
 
   public void setNodeName(String nodeName) {
     this.nodeName = nodeName;
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringBuilder(this)
+      .append("nodeName", nodeName)
+      .toString();
   }
 }

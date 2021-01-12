@@ -4,7 +4,7 @@ import org.springframework.web.multipart.MultipartFile;
 import uu.app.validation.ValidationType;
 
 @ValidationType("gskDocumentDtoInType")
-public class GSKDocumentDtoIn {
+public class GskDocumentCreateDtoIn {
 
   private String name;
   private String text;

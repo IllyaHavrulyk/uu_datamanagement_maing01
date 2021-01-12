@@ -2,18 +2,19 @@ package uu.datamanagement.main.abl.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import uu.datamanagement.main.utils.TimeInterval;
 
-public class CountryGSKBlock {
+public class CountryGskBlock {
 
   private String gskName;
   private TimeInterval timeInterval;
   private List<CountryNode> countryNodes;
 
-  public CountryGSKBlock() {
+  public CountryGskBlock() {
   }
 
-  public CountryGSKBlock(String gskName) {
+  public CountryGskBlock(String gskName) {
     this.gskName = gskName;
     this.countryNodes = new ArrayList<>();
   }
@@ -42,4 +43,12 @@ public class CountryGSKBlock {
     this.timeInterval = timeInterval;
   }
 
+  @Override
+  public String toString() {
+    return new ToStringBuilder(this)
+      .append("gskName", gskName)
+      .append("timeInterval", timeInterval)
+      .append("countryNodes", countryNodes)
+      .toString();
+  }
 }

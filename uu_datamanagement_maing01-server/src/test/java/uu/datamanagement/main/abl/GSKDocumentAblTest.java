@@ -22,24 +22,24 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-import uu.app.server.dto.DownloadableResourceDtoOut;
+import uu.app.client.dto.ByteMultipartFile;
 import uu.app.validation.ValidationErrorType;
 import uu.app.validation.Validator;
+import uu.app.validation.spi.DefaultValidationError;
 import uu.app.validation.spi.DefaultValidationResult;
 import uu.datamanagement.main.SubAppPersistenceConfiguration;
-import uu.datamanagement.main.api.dto.GSKDocumentDtoIn;
-import uu.datamanagement.main.api.dto.GSKDocumentDtoOut;
-import uu.datamanagement.main.api.dto.GSKDocumentExportDtoOut;
-import uu.datamanagement.main.api.dto.GSKDoumentExportDtoIn;
-import uu.datamanagement.main.api.exceptions.GSKDocumentRuntimeException.Error;
-import uu.datamanagement.main.dao.GSKDocumentDao;
+import uu.datamanagement.main.api.dto.GskDocumentCreateDtoIn;
+import uu.datamanagement.main.api.dto.GskDocumentCreateDtoOut;
+import uu.datamanagement.main.api.dto.GskDoumentExportDtoIn;
+import uu.datamanagement.main.api.exceptions.GskDocumentCreateException.Error;
+import uu.datamanagement.main.dao.GskDocumentDao;
 import uu.datamanagement.main.dao.MetadataDao;
-import uu.datamanagement.main.dao.mongo.GSKDocumentMongoDao;
+import uu.datamanagement.main.dao.mongo.GskDocumentMongoDao;
 import uu.datamanagement.main.dao.mongo.MetadataMongoDao;
 import uu.datamanagement.main.helper.ValidationHelper;
 import uu.datamanagement.main.rules.ClearDatabaseRule;
-import uu.datamanagement.main.serde.GSKDocumentBuilder;
-import uu.datamanagement.main.validation.exception.ValidationRuntimeException;
+import uu.datamanagement.main.serde.GskDocumentBuilder;
+import uu.datamanagement.main.helper.exception.ValidationRuntimeException;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -57,32 +57,29 @@ public class GSKDocumentAblTest {
   public ExpectedException exceptionRule = ExpectedException.none();
 
   @Inject
-  private GSKDocumentAbl gskDocumentAbl;
+  private GskDocumentAbl gskDocumentAbl;
 
   @Inject
   private Validator validator;
 
   @Test
   public void testCreateGSKDocument() {
-    GSKDocumentDtoIn dtoIn = generateGSKDocumentDtoIn();
+    GskDocumentCreateDtoIn dtoIn = generateGSKDocumentDtoIn();
 
     when(validator.validate(dtoIn)).thenReturn(new DefaultValidationResult());
-    GSKDocumentDtoOut dtoOut = gskDocumentAbl.create(clearDatabaseRule.getAwid(), dtoIn);
+    GskDocumentCreateDtoOut dtoOut = gskDocumentAbl.create(clearDatabaseRule.getAwid(), dtoIn);
 
     assertNotNull(dtoOut.getId());
     assertNotNull(dtoOut.getMetadataId());
     assertEquals("10XAT-APG------Z-20190220-F103-v1", dtoOut.getDocumentIdentification());
-    assertEquals(1, dtoOut.getGskSeries().size());
-    assertEquals("10YAT-APG------L", dtoOut.getGskSeries().get(0).getArea());
-    assertEquals(3, dtoOut.getGskSeries().get(0).getLastManualBlock().getManualNodes().size());
   }
 
   @Test(expected = ValidationRuntimeException.class)
   public void invalidGSKDocumentDtoIn() {
-    GSKDocumentDtoIn dtoIn = new GSKDocumentDtoIn();
+    GskDocumentCreateDtoIn dtoIn = new GskDocumentCreateDtoIn();
 
     DefaultValidationResult validationResult = new DefaultValidationResult();
-    validationResult.addError(ValidationErrorType.MISSING_KEY, Error.INVALID_DTO_IN);
+    validationResult.addError(ValidationErrorType.MISSING_KEY, new DefaultValidationError(Error.INVALID_DTO_IN.getErrorCode().getErrorCode(), Error.INVALID_DTO_IN.getMessage()));
 
     when(validator.validate(dtoIn)).thenReturn((validationResult));
 
@@ -91,17 +88,17 @@ public class GSKDocumentAblTest {
 
   @Test
   public void testExportGSKDocumentsToZipArchive() {
-    GSKDoumentExportDtoIn dtoIn = new GSKDoumentExportDtoIn();
+    GskDoumentExportDtoIn dtoIn = new GskDoumentExportDtoIn();
 
     when(validator.validate(dtoIn)).thenReturn(new DefaultValidationResult());
     // GSKDocumentDtoOut savedGSKDocument = gskDocumentAbl.create(clearDatabaseRule.getAwid(), generateGSKDocumentDtoIn());
-    GSKDocumentExportDtoOut dtoOut = gskDocumentAbl.export(clearDatabaseRule.getAwid(), dtoIn);
+    ByteMultipartFile dtoOut = gskDocumentAbl.export(clearDatabaseRule.getAwid(), dtoIn);
 
     assertNotNull(dtoOut);
   }
 
-  private GSKDocumentDtoIn generateGSKDocumentDtoIn() {
-    GSKDocumentDtoIn dtoIn = new GSKDocumentDtoIn();
+  private GskDocumentCreateDtoIn generateGSKDocumentDtoIn() {
+    GskDocumentCreateDtoIn dtoIn = new GskDocumentCreateDtoIn();
     dtoIn.setName("F103-GeneratingAndLoadShiftKeys");
     dtoIn.setText("File for testing request");
 
@@ -119,13 +116,13 @@ public class GSKDocumentAblTest {
   public static class GSKDocumentAblTestConfiguration {
 
     @Bean
-    GSKDocumentAbl gskDocumentAbl() {
-      return new GSKDocumentAbl(gskDocumentDao(), metadataDao(), validationHelper(), modelMapper(), gskDocumentBuilder());
+    GskDocumentAbl gskDocumentAbl() {
+      return new GskDocumentAbl(gskDocumentDao(), metadataDao(), validationHelper(), modelMapper(), gskDocumentBuilder());
     }
 
     @Bean
-    GSKDocumentDao gskDocumentDao() {
-      return new GSKDocumentMongoDao();
+    GskDocumentDao gskDocumentDao() {
+      return new GskDocumentMongoDao();
     }
 
     @Bean
@@ -154,8 +151,8 @@ public class GSKDocumentAblTest {
     }
 
     @Bean
-    GSKDocumentBuilder gskDocumentBuilder() {
-      return Mockito.mock(GSKDocumentBuilder.class);
+    GskDocumentBuilder gskDocumentBuilder() {
+      return Mockito.mock(GskDocumentBuilder.class);
     }
 
   }

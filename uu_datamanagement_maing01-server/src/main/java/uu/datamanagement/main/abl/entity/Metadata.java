@@ -1,6 +1,7 @@
 package uu.datamanagement.main.abl.entity;
 
 import java.time.ZonedDateTime;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import uu.app.objectstore.mongodb.domain.AbstractUuObject;
 import uu.datamanagement.main.utils.DocumentType;
 import uu.datamanagement.main.utils.TimeInterval;
@@ -81,5 +82,19 @@ public class Metadata extends AbstractUuObject {
 
   public void setValid(Boolean valid) {
     isValid = valid;
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringBuilder(this)
+      .append("documentType", documentType)
+      .append("sender", sender)
+      .append("receiver", receiver)
+      .append("domain", domain)
+      .append("creationDateTime", creationDateTime)
+      .append("timeInterval", timeInterval)
+      .append("fileName", fileName)
+      .append("isValid", isValid)
+      .toString();
   }
 }

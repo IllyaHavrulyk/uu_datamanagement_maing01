@@ -6,23 +6,25 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.inject.Inject;
 import org.springframework.stereotype.Component;
-import uu.datamanagement.main.abl.entity.GSKDocument;
+import uu.datamanagement.main.abl.entity.GskDocument;
 import uu.datamanagement.main.abl.entity.Metadata;
+import uu.datamanagement.main.serde.exception.GskDocumentBuilderException;
+import uu.datamanagement.main.serde.exception.GskDocumentBuilderException.Error;
 import uu.datamanagement.main.xml.freemarker.FreemarkerProcessor;
 
 @Component
-public class GSKDocumentBuilder {
+public class GskDocumentBuilder {
 
   private static final String GSK_TEMPLATE = "/gsk-document.ftl";
 
   private final FreemarkerProcessor freemarkerProcessor;
 
   @Inject
-  public GSKDocumentBuilder(FreemarkerProcessor freemarkerProcessor) {
+  public GskDocumentBuilder(FreemarkerProcessor freemarkerProcessor) {
     this.freemarkerProcessor = freemarkerProcessor;
   }
 
-  public byte[] build(GSKDocument gskDocument, Metadata metadata) {
+  public byte[] build(GskDocument gskDocument, Metadata metadata) {
     Map<String, Object> input = new HashMap<>();
     input.put("gskDocument", gskDocument);
     input.put("metadata", metadata);
@@ -30,9 +32,8 @@ public class GSKDocumentBuilder {
     try {
       return freemarkerProcessor.generateBinaryOutput(GSK_TEMPLATE, input);
     } catch (TemplateException | IOException e) {
-      e.printStackTrace();
+      throw new GskDocumentBuilderException(Error.BUILD_DOCUMENT_FAILED, e);
     }
-    return null;
   }
 
 }
