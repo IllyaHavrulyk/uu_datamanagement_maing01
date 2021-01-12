@@ -18,11 +18,6 @@ public class CountryGSKBlock {
     this.countryNodes = new ArrayList<>();
   }
 
-  public CountryGSKBlock(String gskName, TimeInterval timeInterval) {
-    this.gskName = gskName;
-    this.timeInterval = timeInterval;
-  }
-
   public List<CountryNode> getCountryNodes() {
     return countryNodes;
   }

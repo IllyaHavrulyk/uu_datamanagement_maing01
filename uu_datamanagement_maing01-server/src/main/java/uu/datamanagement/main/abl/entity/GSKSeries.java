@@ -18,15 +18,6 @@ public class GSKSeries {
     this.autoGSKBlocks = new ArrayList<>();
   }
 
-  public GSKSeries(String area, BusinessType businessType, List<ManualGSKBlock> manualGSKBlock, List<CountryGSKBlock> countryGSKBlock,
-    List<AutoGSKBlock> autoGSKBlocks) {
-    this.area = area;
-    this.businessType = businessType;
-    this.manualGSKBlock = manualGSKBlock;
-    this.countryGSKBlock = countryGSKBlock;
-    this.autoGSKBlocks = autoGSKBlocks;
-  }
-
   public String getArea() {
     return area;
   }

@@ -1,10 +1,9 @@
 package uu.datamanagement.main.abl;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.zip.ZipEntry;
@@ -66,13 +65,9 @@ public class GSKDocumentAbl {
     Metadata savedMetadata = metadataDao.create(metadata);
     document.setMetadataId(savedMetadata.getId());
     document.setAwid(awid);
-    GSKDocument createdDocument = gskDocumentDao.create(document);
+    gskDocumentDao.create(document);
 
-    GSKDocumentDtoOut dtoOut = new GSKDocumentDtoOut();
-    dtoOut.setId(createdDocument.getId());
-    dtoOut.setMetadataId(document.getMetadataId());
-
-    return dtoOut;
+    return modelMapper.map(document, GSKDocumentDtoOut.class);
   }
 
   public GSKDocumentExportDtoOut export(String awid, GSKDoumentExportDtoIn dtoIn) {
@@ -88,16 +83,14 @@ public class GSKDocumentAbl {
       e.printStackTrace();
     }
 
-    try {
-      FileOutputStream fos = new FileOutputStream("result.zip");
-      fos.write(result);
-      fos.close();
-    } catch (IOException e) {
-      e.printStackTrace();
+    List<Byte> byteList = new ArrayList<>();
+
+    for (byte b : result) {
+      byteList.add(b);
     }
 
     GSKDocumentExportDtoOut dtoOut = new GSKDocumentExportDtoOut();
-    dtoOut.setBytes(result);
+    dtoOut.setByteList(byteList);
     return dtoOut;
   }
 

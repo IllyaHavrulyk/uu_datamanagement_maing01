@@ -11,11 +11,6 @@ public class ManualNode {
     this.nodeName = nodeName;
   }
 
-  public ManualNode(String nodeName, BigDecimal factor) {
-    this.nodeName = nodeName;
-    this.factor = factor;
-  }
-
   public ManualNode() {
   }
 

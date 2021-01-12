@@ -5,9 +5,7 @@ import javax.inject.Inject;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import uu.app.datastore.domain.PagedResult;
-import uu.app.exception.AppErrorMap;
 import uu.datamanagement.main.abl.entity.Metadata;
-import uu.datamanagement.main.api.dto.MetadataDtoIn;
 import uu.datamanagement.main.api.dto.MetadataDtoOut;
 import uu.datamanagement.main.api.dto.MetadataListDtoIn;
 import uu.datamanagement.main.api.dto.MetadataListDtoOut;
@@ -68,9 +66,4 @@ public class MetadataAbl {
     return metadata;
   }
 
-  public MetadataDtoOut create(String awid, MetadataDtoIn dtoIn) {
-    Metadata metadata = modelMapper.map(dtoIn, Metadata.class);
-    metadata.setAwid(awid);
-    return modelMapper.map(metadataDao.create(metadata), MetadataDtoOut.class);
-  }
 }

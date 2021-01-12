@@ -13,12 +13,6 @@ public class AutoGSKBlock {
   public AutoGSKBlock() {
   }
 
-  public AutoGSKBlock(String gskName, TimeInterval timeInterval, List<AutoNode> autoNodes) {
-    this.gskName = gskName;
-    this.timeInterval = timeInterval;
-    this.autoNodes = autoNodes;
-  }
-
   public AutoGSKBlock(String gskName) {
     this.gskName = gskName;
     this.autoNodes = new ArrayList<>();

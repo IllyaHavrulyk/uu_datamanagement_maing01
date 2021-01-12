@@ -30,11 +30,6 @@ public class MetadataController {
     return metadataAbl.list(ctx.getUri().getAwid(), ctx.getDtoIn());
   }
 
-  @Command(path = "metadata/create", method = POST)
-  public MetadataDtoOut create(CommandContext<MetadataDtoIn> ctx) {
-    return metadataAbl.create(ctx.getUri().getAwid(), ctx.getDtoIn());
-  }
-
   @Command(path = "metadata/update", method = POST)
   public MetadataDtoOut update(CommandContext<MetadataUpdateDtoIn> ctx) {
     return metadataAbl.update(ctx.getUri().getAwid(), ctx.getDtoIn());

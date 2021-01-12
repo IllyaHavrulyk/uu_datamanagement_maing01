@@ -1,19 +1,20 @@
 package uu.datamanagement.main.api.dto;
 
+import java.util.List;
 import uu.app.dto.AbstractDtoOut;
 
 public class GSKDocumentExportDtoOut extends AbstractDtoOut {
 
-  private byte[] bytes;
+  private List<Byte> byteList;
 
   public GSKDocumentExportDtoOut() {
   }
 
-  public byte[] getBytes() {
-    return bytes;
+  public List<Byte> getByteList() {
+    return byteList;
   }
 
-  public void setBytes(byte[] bytes) {
-    this.bytes = bytes;
+  public void setByteList(List<Byte> byteList) {
+    this.byteList = byteList;
   }
 }

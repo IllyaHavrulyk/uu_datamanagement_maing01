@@ -18,12 +18,6 @@ public class ManualGSKBlock {
     manualNodes = new ArrayList<>();
   }
 
-  public ManualGSKBlock(String gskName, TimeInterval timeInterval, List<ManualNode> manualNodes) {
-    this.gskName = gskName;
-    this.timeInterval = timeInterval;
-    this.manualNodes = manualNodes;
-  }
-
   public String getGskName() {
     return gskName;
   }

@@ -1,8 +1,7 @@
 package uu.datamanagement.main.abl;
 
-import static org.junit.Assert.*;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
@@ -23,12 +22,15 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+import uu.app.server.dto.DownloadableResourceDtoOut;
 import uu.app.validation.ValidationErrorType;
 import uu.app.validation.Validator;
 import uu.app.validation.spi.DefaultValidationResult;
 import uu.datamanagement.main.SubAppPersistenceConfiguration;
 import uu.datamanagement.main.api.dto.GSKDocumentDtoIn;
 import uu.datamanagement.main.api.dto.GSKDocumentDtoOut;
+import uu.datamanagement.main.api.dto.GSKDocumentExportDtoOut;
+import uu.datamanagement.main.api.dto.GSKDoumentExportDtoIn;
 import uu.datamanagement.main.api.exceptions.GSKDocumentRuntimeException.Error;
 import uu.datamanagement.main.dao.GSKDocumentDao;
 import uu.datamanagement.main.dao.MetadataDao;
@@ -58,9 +60,6 @@ public class GSKDocumentAblTest {
   private GSKDocumentAbl gskDocumentAbl;
 
   @Inject
-  private ValidationHelper validationHelper;
-
-  @Inject
   private Validator validator;
 
   @Test
@@ -70,6 +69,7 @@ public class GSKDocumentAblTest {
     when(validator.validate(dtoIn)).thenReturn(new DefaultValidationResult());
     GSKDocumentDtoOut dtoOut = gskDocumentAbl.create(clearDatabaseRule.getAwid(), dtoIn);
 
+    assertNotNull(dtoOut.getId());
     assertNotNull(dtoOut.getMetadataId());
     assertEquals("10XAT-APG------Z-20190220-F103-v1", dtoOut.getDocumentIdentification());
     assertEquals(1, dtoOut.getGskSeries().size());
@@ -87,6 +87,17 @@ public class GSKDocumentAblTest {
     when(validator.validate(dtoIn)).thenReturn((validationResult));
 
     gskDocumentAbl.create(clearDatabaseRule.getAwid(), dtoIn);
+  }
+
+  @Test
+  public void testExportGSKDocumentsToZipArchive() {
+    GSKDoumentExportDtoIn dtoIn = new GSKDoumentExportDtoIn();
+
+    when(validator.validate(dtoIn)).thenReturn(new DefaultValidationResult());
+    // GSKDocumentDtoOut savedGSKDocument = gskDocumentAbl.create(clearDatabaseRule.getAwid(), generateGSKDocumentDtoIn());
+    GSKDocumentExportDtoOut dtoOut = gskDocumentAbl.export(clearDatabaseRule.getAwid(), dtoIn);
+
+    assertNotNull(dtoOut);
   }
 
   private GSKDocumentDtoIn generateGSKDocumentDtoIn() {
