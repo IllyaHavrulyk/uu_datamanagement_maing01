@@ -18,7 +18,7 @@ import uu.datamanagement.main.api.dto.MetadataUpdateDtoIn;
 @CommandController
 public class MetadataController {
 
-  private static final Logger logger = LogManager.getLogger(ClearStorageController.class);
+  private static final Logger logger = LogManager.getLogger(MetadataController.class);
 
   private final MetadataAbl metadataAbl;
 

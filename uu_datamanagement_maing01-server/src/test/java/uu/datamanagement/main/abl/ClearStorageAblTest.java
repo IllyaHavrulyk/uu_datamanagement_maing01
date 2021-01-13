@@ -62,8 +62,8 @@ public class ClearStorageAblTest {
 
     ClearStorageDtoOut clear = clearStorageAbl.clean(clearDatabaseRule.getAwid(), new ClearStorageDtoIn());
 
-    assertThat(clear.getResultGSKDocument().getN()).isEqualTo(3);
-    assertThat(clear.getResultGSKDocument().getUpsertedId()).isNull();
+    assertThat(clear.getResultGskDocument().getN()).isEqualTo(3);
+    assertThat(clear.getResultGskDocument().getUpsertedId()).isNull();
     assertThat(clear.getResultMetadata().getN()).isEqualTo(3);
     assertThat(clear.getResultMetadata().getUpsertedId()).isNull();
   }

@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Import;
 import uu.app.subapp.AbstractSubAppConfiguration;
 import uu.app.subapp.OidcAuthenticationContextConfiguration;
 import uu.app.subapp.WorkspaceContextConfiguration;
-import uu.app.validation.ValidationTypeDefinitionSource;
 
 /**
  * Spring configuration of the application.

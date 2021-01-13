@@ -22,7 +22,7 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-import uu.app.client.dto.ByteMultipartFile;
+import uu.app.server.dto.DownloadableResourceDtoOut;
 import uu.app.validation.ValidationErrorType;
 import uu.app.validation.Validator;
 import uu.app.validation.spi.DefaultValidationError;
@@ -37,9 +37,9 @@ import uu.datamanagement.main.dao.MetadataDao;
 import uu.datamanagement.main.dao.mongo.GskDocumentMongoDao;
 import uu.datamanagement.main.dao.mongo.MetadataMongoDao;
 import uu.datamanagement.main.helper.ValidationHelper;
+import uu.datamanagement.main.helper.exception.ValidationRuntimeException;
 import uu.datamanagement.main.rules.ClearDatabaseRule;
 import uu.datamanagement.main.serde.GskDocumentBuilder;
-import uu.datamanagement.main.helper.exception.ValidationRuntimeException;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -91,8 +91,7 @@ public class GSKDocumentAblTest {
     GskDoumentExportDtoIn dtoIn = new GskDoumentExportDtoIn();
 
     when(validator.validate(dtoIn)).thenReturn(new DefaultValidationResult());
-    // GSKDocumentDtoOut savedGSKDocument = gskDocumentAbl.create(clearDatabaseRule.getAwid(), generateGSKDocumentDtoIn());
-    ByteMultipartFile dtoOut = gskDocumentAbl.export(clearDatabaseRule.getAwid(), dtoIn);
+    DownloadableResourceDtoOut dtoOut = gskDocumentAbl.export(clearDatabaseRule.getAwid(), dtoIn);
 
     assertNotNull(dtoOut);
   }

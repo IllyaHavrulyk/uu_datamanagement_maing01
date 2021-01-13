@@ -1,17 +1,19 @@
 package uu.datamanagement.main.abl;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.time.ZonedDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 import javax.inject.Inject;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
-import uu.app.client.dto.ByteMultipartFile;
 import uu.app.datastore.domain.PagedResult;
+import uu.app.server.dto.ContentDispositionType;
+import uu.app.server.dto.DownloadableResourceDtoOut;
 import uu.datamanagement.main.abl.entity.GskDocument;
 import uu.datamanagement.main.abl.entity.Metadata;
 import uu.datamanagement.main.api.dto.GskDocumentCreateDtoIn;
@@ -80,23 +82,23 @@ public class GskDocumentAbl {
     return modelMapper.map(createdDocument, GskDocumentCreateDtoOut.class);
   }
 
-  public ByteMultipartFile export(String awid, GskDoumentExportDtoIn dtoIn) {
+  public DownloadableResourceDtoOut export(String awid, GskDoumentExportDtoIn dtoIn) {
     validationHelper.validateDtoIn(dtoIn, Error.INVALID_DTO_IN);
 
     PagedResult<GskDocument> pagedResult = gskDocumentDao.list(awid, dtoIn.getPageInfo());
     List<GskDocument> gskDocuments = pagedResult.getItemList();
 
-    ByteArrayOutputStream result = new ByteArrayOutputStream();
+    byte[] result;
     try {
       result = generateZipArchive(awid, gskDocuments);
     } catch (IOException e) {
-      e.printStackTrace();
+      throw new GskDocumentExportException(Error.GET_GENERATED_ZIP_FAILED, e);
     }
 
-    return new ByteMultipartFile(result.toByteArray(), ZonedDateTime.now().toString() + ".zip");
+    return createDtoOut("namefile.zip", result);
   }
 
-  private ByteArrayOutputStream generateZipArchive(String awid, List<GskDocument> gskDocuments) throws IOException {
+  private byte[] generateZipArchive(String awid, List<GskDocument> gskDocuments) throws IOException {
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     ZipOutputStream zos = new ZipOutputStream(baos);
 
@@ -120,7 +122,17 @@ public class GskDocumentAbl {
     }
 
     zos.close();
-    return baos;
+    return baos.toByteArray();
+  }
+
+  private DownloadableResourceDtoOut createDtoOut(String filename, byte[] bytesXml) {
+    return new DownloadableResourceDtoOut(
+      new ByteArrayInputStream(bytesXml),
+      filename,
+      (long) bytesXml.length,
+      ContentDispositionType.INLINE,
+      MediaType.MULTIPART_FORM_DATA
+    );
   }
 
 }

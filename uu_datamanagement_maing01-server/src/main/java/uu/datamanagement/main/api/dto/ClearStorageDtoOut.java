@@ -11,7 +11,7 @@ public class ClearStorageDtoOut extends AbstractDtoOut {
 
   private AppErrorMap uuAppErrorMap;
   private WriteResult resultMetadata;
-  private WriteResult resultGSKDocument;
+  private WriteResult resultGskDocument;
 
   public AppErrorMap getUuAppErrorMap() {
     return uuAppErrorMap;
@@ -29,12 +29,12 @@ public class ClearStorageDtoOut extends AbstractDtoOut {
     this.resultMetadata = resultMetadata;
   }
 
-  public WriteResult getResultGSKDocument() {
-    return resultGSKDocument;
+  public WriteResult getResultGskDocument() {
+    return resultGskDocument;
   }
 
-  public void setResultGSKDocument(WriteResult resultGSKDocument) {
-    this.resultGSKDocument = resultGSKDocument;
+  public void setResultGskDocument(WriteResult resultGskDocument) {
+    this.resultGskDocument = resultGskDocument;
   }
 
   @Override

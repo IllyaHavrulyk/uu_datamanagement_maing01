@@ -60,7 +60,7 @@
     </AutoGSK_Block>
     </#list>
     </#if>
-    </GSKSeries>
+  </GSKSeries>
   </#list>
   </#if>
 </GSKDocument>

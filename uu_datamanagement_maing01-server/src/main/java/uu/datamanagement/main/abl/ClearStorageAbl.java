@@ -30,14 +30,14 @@ public class ClearStorageAbl {
     validationHelper.validateDtoIn(dtoIn, Error.INVALID_DTO_IN);
 
     WriteResult resultMetadata;
-    WriteResult resultGSKDocument;
+    WriteResult resultGskDocument;
 
     resultMetadata = metadataDao.deleteMany(awid);
-    resultGSKDocument = gskDocumentDao.deleteMany(awid);
+    resultGskDocument = gskDocumentDao.deleteMany(awid);
 
     ClearStorageDtoOut dtoOut = new ClearStorageDtoOut();
     dtoOut.setResultMetadata(resultMetadata);
-    dtoOut.setResultGSKDocument(resultGSKDocument);
+    dtoOut.setResultGskDocument(resultGskDocument);
     return dtoOut;
   }
 
