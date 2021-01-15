@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<GSKDocument xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="gsk-document-02.xsd">
+	<DocumentIdentification v="10XCZ-CEPS-GRIDE-20190220-F103-v1"/>
+	<DocumentVersion v="1"/>
+	<DocumentType v="B22"/>
+	<ProcessType v="Z02"/>
+	<SenderIdentification codingScheme="A01" v="10XCZ-CEPS-GRIDE"/>
+	<SenderRole v="A04"/>
+	<ReceiverIdentification codingScheme="A01" v="17XTSO-CS------W"/>
+	<ReceiverRole v="A36"/>
+	<CreationDateTime v="2019-02-13T09:30:00Z"/>
+	<GSKTimeInterval v="2019-02-19T23:00Z/2019-02-20T23:00Z"/>
+	<Domain codingScheme="A01" v="10Y1001C--00059P"/>
+	<GSKSeries>
+		<TimeSeriesIdentification v="1"/>
+		<BusinessType share="100.000" v="Z02"/>
+		<Area codingScheme="A01" v="10YCZ-CEPS-----N"/>
+		<AutoGSK_Block>
+			<GSK_Name v="CZ"/>
+			<TimeInterval v="2019-02-19T23:00Z/2019-02-20T23:00Z"/>
+			<AutoNodes>
+				<NodeName v="CTMC__58"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CTBE__53"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CTMC__54"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CTBE__56"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CTMC__56"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CTMC__57"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CEPOC_13"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CEPOC_11"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CEPR1_11"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CETB__51"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CPOR__53"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CKOM__59"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CEPLN_51"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CKOM__56"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CKOM__55"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CKOM__54"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CKOM__52"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CKOM__51"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CKOM__50"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CKOZ__54"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CKOZ__55"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CKVE__55"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CEDU2_11"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CSTX__52"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CSTX__51"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CHOD__53"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CHOD__54"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CPLN__51"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CETU2_12"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CETU2_11"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CBAR__52"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CBAR__51"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="COPA__52"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="COPA__53"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="COPA__51"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="COPA__56"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="COPA__54"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="COPA__55"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CKAU__52"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CKAU__54"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CEDU4_11"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CDLU__51"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CME2__51"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CME2__52"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CDLU__52"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CETEM_12"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CETEM_11"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CAZB__51"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CAZB__52"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CEPC2_11"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CHDL__53"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CPLE__51"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CPLE__59"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CPLE__58"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CPOR__51"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CKAM__51"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CKAM__52"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CVRE__51"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CVRE__53"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CVRE__52"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CETIS_21"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CVRE__54"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CVER__54"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CVRN__52"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CVRN__51"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CCML__51"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CCML__52"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CELED_54"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CEME3_11"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CETIS_52"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CETIS_55"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CEKL__54"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CEKL__55"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CEKL__57"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CALB__57"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CEDU1_11"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CEPR2_11"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CEPR2_12"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CTPL__51"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CTPL__52"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CTPL__53"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CEPVR_21"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CEPVR_22"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CECHV_12"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CECHV_11"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CME1__53"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CME1__52"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CME1__51"/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="CME1__54"/>
+			</AutoNodes>
+		</AutoGSK_Block>
+	</GSKSeries>
+</GSKDocument>

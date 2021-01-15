@@ -5,6 +5,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import uu.app.objectstore.mongodb.domain.AbstractUuObject;
 import uu.datamanagement.main.utils.DocumentType;
 import uu.datamanagement.main.utils.TimeInterval;
+import uu.datamanagement.main.validation.ValidationResult;
 
 public class Metadata extends AbstractUuObject {
 
@@ -16,6 +17,7 @@ public class Metadata extends AbstractUuObject {
   private TimeInterval timeInterval;
   private String fileName;
   private Boolean isValid;
+  private ValidationResult validationResult;
 
   public Metadata() {
   }
@@ -96,5 +98,13 @@ public class Metadata extends AbstractUuObject {
       .append("fileName", fileName)
       .append("isValid", isValid)
       .toString();
+  }
+
+  public ValidationResult getValidationResult() {
+    return validationResult;
+  }
+
+  public void setValidationResult(ValidationResult validationResult) {
+    this.validationResult = validationResult;
   }
 }

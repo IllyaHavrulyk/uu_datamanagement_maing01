@@ -14,8 +14,8 @@
     <TimeSeriesIdentification v="${seria.timeSeriesId}"/>
     <BusinessType v="${seria.businessType}"/>
     <Area v="${seria.area}"/>
-    <#if seria.manualGskBlocks?has_content>
-    <#list seria.manualGskBlocks as manualBlock>
+    <#if seria.manualGSKBlock?has_content>
+    <#list seria.manualGSKBlock as manualBlock>
     <ManualGSK_Block>
       <GSK_Name v="${manualBlock.gskName}"/>
       <TimeInterval v="${manualBlock.timeInterval}"/>
@@ -30,6 +30,21 @@
     </ManualGSK_Block>
     </#list>
     </#if>
+    <#if seria.countryGSKBlock?has_content>
+    <#list seria.countryGSKBlock as countryBlock>
+    <CountryGSK_Block>
+      <GSK_Name v="${countryBlock.gskName}"/>
+      <TimeInterval v="${countryBlock.timeInterval}"/>
+      <#if countryBlock.countryNodes?has_content>
+      <#list countryBlock.countryNodes as countryNode>
+      <CountryNodes>
+        <NodeName v="${countryNode.nodeName}"/>
+      </CountryNodes>
+      </#list>
+      </#if>
+    </CountryGSK_Block>
+    </#list>
+    </#if>
     <#if seria.autoGskBlocks?has_content>
     <#list seria.autoGskBlocks as autoBlock>
     <AutoGSK_Block>
@@ -37,27 +52,12 @@
       <TimeInterval v="${autoBlock.timeInterval}"/>
       <#if autoBlock.autoNodes?has_content>
       <#list autoBlock.autoNodes as autoNode>
-      <AutoNodes>
-        <NodeName v="${autoNode.nodeName}"/>
-      </AutoNodes>
+        <AutoNodes>
+          <NodeName v="${autoNode.nodeName}"/>
+        </AutoNodes>
       </#list>
       </#if>
     </AutoGSK_Block>
-    </#list>
-    </#if>
-    <#if seria.countryGskBlocks?has_content>
-    <#list seria.countryGskBlocks as countryBlock>
-      <CountryGSK_Block>
-        <GSK_Name v="${countryBlock.gskName}"/>
-        <TimeInterval v="${countryBlock.timeInterval}"/>
-        <#if countryBlock.countryNodes?has_content>
-        <#list countryBlock.countryNodes as countryNode>
-        <CountryNodes>
-          <NodeName v="${countryNode.nodeName}"/>
-        </CountryNodes>
-        </#list>
-        </#if>
-      </CountryGSK_Block>
     </#list>
     </#if>
   </GSKSeries>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<GSKDocument xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="gsk-document-02.xsd">
+	<DocumentIdentification v="10XHR-HEP-OPS--A-20190220-F103-v1"/>
+	<DocumentVersion v="1"/>
+	<DocumentType v="B22"/>
+	<ProcessType v="Z02"/>
+	<SenderIdentification codingScheme="A01" v="10XHR-HEP-OPS--A"/>
+	<SenderRole v="A04"/>
+	<ReceiverIdentification codingScheme="A01" v="17XTSO-CS------W"/>
+	<ReceiverRole v="A36"/>
+	<CreationDateTime v="2019-02-13T09:30:00Z"/>
+	<GSKTimeInterval v="2019-02-19T23:00Z/2019-02-20T23:00Z"/>
+	<Domain codingScheme="A01" v="10Y1001C--00059P"/>
+	<GSKSeries>
+		<TimeSeriesIdentification v="1"/>
+		<BusinessType share="25.000" v="Z02"/>
+		<Area codingScheme="A01" v="10YHR-HEP------M"/>
+		<AutoGSK_Block>
+			<GSK_Name v="HR"/>
+			<TimeInterval v="2019-02-19T23:00Z/2019-02-20T23:00Z"/>
+			<AutoNodes>
+				<NodeName v="HTESIS2 "/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="HTEPLO2 "/>
+			</AutoNodes>
+		</AutoGSK_Block>
+	</GSKSeries>
+	<GSKSeries>
+		<TimeSeriesIdentification v="2"/>
+		<BusinessType share="75.000" v="Z05"/>
+		<Area codingScheme="A01" v="10YHR-HEP------M"/>
+		<AutoGSK_Block>
+			<GSK_Name v="HR"/>
+			<TimeInterval v="2019-02-19T23:00Z/2019-02-20T23:00Z"/>
+			<AutoNodes>
+				<NodeName v="HZERJA1 "/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="HZAKUC2 "/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="HVELEB1 "/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="HTUMBR1 "/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="HTESIS2 "/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="HTEPLO2 "/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="HSENJ 2 "/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="HRIJEK2 "/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="HPLAT 2 "/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="HPEHLI2 "/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="HMRACL2 "/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="HMELIN2 "/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="HMEDUR2 "/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="HKONJS2 "/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="HERNES1 "/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="HDAKOV2 "/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="HBRINJ2 "/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="HBILIC2 "/>
+			</AutoNodes>
+		</AutoGSK_Block>
+	</GSKSeries>
+</GSKDocument>

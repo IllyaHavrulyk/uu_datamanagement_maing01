@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<GSKDocument xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="gsk-document-02.xsd">
+	<DocumentIdentification v="10XDE-VE-TRANSMK-20190220-F103-v1"/>
+	<DocumentVersion v="1"/>
+	<DocumentType v="B22"/>
+	<ProcessType v="Z02"/>
+	<SenderIdentification codingScheme="A01" v="10XDE-VE-TRANSMK"/>
+	<SenderRole v="A04"/>
+	<ReceiverIdentification codingScheme="A01" v="17XTSO-CS------W"/>
+	<ReceiverRole v="A36"/>
+	<CreationDateTime v="2019-02-22T12:00:00Z"/>
+	<GSKTimeInterval v="2019-02-19T23:00Z/2019-02-20T23:00Z"/>
+	<Domain codingScheme="A01" v="10Y1001C--00059P"/>
+	<GSKSeries>
+		<TimeSeriesIdentification v="1"/>
+		<BusinessType share="100.000" v="Z02"/>
+		<Area codingScheme="A01" v="10YDE-VE-------2"/>
+		<ManualGSK_Block>
+			<GSK_Name v="DE"/><!--Only TransnetBW (D4) is sending specific code, the rest of german TSOs provide general "DE"-->
+			<TimeInterval v="2019-02-19T23:00Z/2019-02-20T05:00Z"/>
+			<ManualNodes>
+				<NodeName v="D8ATF_11"/>
+				<Factor v="0.40390"/>
+			</ManualNodes>
+			<ManualNodes>
+				<NodeName v="D8SUED11"/>
+				<Factor v="0.39420"/>
+			</ManualNodes>
+			<ManualNodes>
+				<NodeName v="D8REU_11"/>
+				<Factor v="0.11140"/>
+			</ManualNodes>
+			<ManualNodes>
+				<NodeName v="D8ROS_11"/>
+				<Factor v="0.09050"/>
+			</ManualNodes>
+		</ManualGSK_Block>
+		<ManualGSK_Block>
+			<GSK_Name v="DE"/>
+			<TimeInterval v="2019-02-20T05:00Z/2019-02-20T21:00Z"/>
+			<ManualNodes>
+				<NodeName v="D8ATF_11"/>
+				<Factor v="0.23640"/>
+			</ManualNodes>
+			<ManualNodes>
+				<NodeName v="D8SUED11"/>
+				<Factor v="0.50490"/>
+			</ManualNodes>
+			<ManualNodes>
+				<NodeName v="D8REU_11"/>
+				<Factor v="0.14270"/>
+			</ManualNodes>
+			<ManualNodes>
+				<NodeName v="D8ROS_11"/>
+				<Factor v="0.11600"/>
+			</ManualNodes>
+		</ManualGSK_Block>
+		<ManualGSK_Block>
+			<GSK_Name v="DE"/>
+			<TimeInterval v="2019-02-20T21:00Z/2019-02-20T23:00Z"/>
+			<ManualNodes>
+				<NodeName v="D8ATF_11"/>
+				<Factor v="0.40390"/>
+			</ManualNodes>
+			<ManualNodes>
+				<NodeName v="D8SUED11"/>
+				<Factor v="0.39420"/>
+			</ManualNodes>
+			<ManualNodes>
+				<NodeName v="D8REU_11"/>
+				<Factor v="0.11140"/>
+			</ManualNodes>
+			<ManualNodes>
+				<NodeName v="D8ROS_11"/>
+				<Factor v="0.09050"/>
+			</ManualNodes>
+		</ManualGSK_Block>
+	</GSKSeries>
+</GSKDocument>

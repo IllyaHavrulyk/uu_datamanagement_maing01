@@ -16,7 +16,8 @@
       "metadata/list": ["Authorities", "Executives", "AwidOwner"],
       "metadata/update": ["Authorities", "Executives", "AwidOwner"],
       "gskdocument/create": ["Authorities", "Executives", "AwidOwner"],
-      "export": ["Authorities", "Executives", "AwidOwner"]
+      "export": ["Authorities", "Executives", "AwidOwner"],
+      "validate": ["Authorities", "Executives", "AwidOwner"]
     }
   }
 }

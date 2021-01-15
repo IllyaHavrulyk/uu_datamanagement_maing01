@@ -3,36 +3,14 @@ package uu.datamanagement.main.abl.entity;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import uu.datamanagement.main.utils.TimeInterval;
 
-public class ManualGskBlock {
+public class ManualGskBlock extends AbstractGskBlock {
 
-  private String gskName;
-  private TimeInterval timeInterval;
   private List<ManualNode> manualNodes;
 
-  public ManualGskBlock() {
-  }
-
   public ManualGskBlock(String gskName) {
-    this.gskName = gskName;
+    super(gskName);
     manualNodes = new ArrayList<>();
-  }
-
-  public String getGskName() {
-    return gskName;
-  }
-
-  public void setGskName(String gskName) {
-    this.gskName = gskName;
-  }
-
-  public TimeInterval getTimeInterval() {
-    return timeInterval;
-  }
-
-  public void setTimeInterval(TimeInterval timeInterval) {
-    this.timeInterval = timeInterval;
   }
 
   public List<ManualNode> getManualNodes() {
@@ -50,8 +28,8 @@ public class ManualGskBlock {
   @Override
   public String toString() {
     return new ToStringBuilder(this)
-      .append("gskName", gskName)
-      .append("timeInterval", timeInterval)
+      .append("gskName", getGskName())
+      .append("timeInterval", getTimeInterval())
       .append("manualNodes", manualNodes)
       .toString();
   }

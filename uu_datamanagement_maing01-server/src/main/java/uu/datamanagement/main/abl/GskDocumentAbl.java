@@ -3,6 +3,8 @@ package uu.datamanagement.main.abl;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
 import java.util.zip.ZipEntry;
@@ -95,7 +97,9 @@ public class GskDocumentAbl {
       throw new GskDocumentExportException(Error.GET_GENERATED_ZIP_FAILED, e);
     }
 
-    return createDtoOut("namefile.zip", result);
+    String filename = ZonedDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + ".zip";
+
+    return createDtoOut(filename, result);
   }
 
   private byte[] generateZipArchive(String awid, List<GskDocument> gskDocuments) throws IOException {

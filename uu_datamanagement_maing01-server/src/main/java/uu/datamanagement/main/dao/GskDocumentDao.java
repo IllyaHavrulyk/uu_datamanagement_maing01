@@ -7,5 +7,6 @@ import uu.datamanagement.main.abl.entity.GskDocument;
 public interface GskDocumentDao extends UuObjectDao<GskDocument> {
 
   WriteResult deleteMany(String awid);
+  GskDocument getByMetadataId(String awid, String metadataId);
 
 }

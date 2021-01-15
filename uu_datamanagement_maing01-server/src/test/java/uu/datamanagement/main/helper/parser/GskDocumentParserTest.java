@@ -43,7 +43,7 @@ public class GskDocumentParserTest {
     GskSeries series = data.getGskSeries().get(0);
     assertEquals(BusinessType.Z02, series.getBusinessType());
     assertEquals("ABC", series.getArea());
-    assertEquals(1, series.getManualGSKBlock().size());
+    assertEquals(1, series.getManualGskBlocks().size());
 
     ManualGskBlock manualBlock = series.getLastManualBlock();
     assertEquals("ManualBlock1", manualBlock.getGskName());
@@ -52,11 +52,11 @@ public class GskDocumentParserTest {
     assertEquals("Node1m", manualBlock.getManualNodes().get(0).getNodeName());
     assertEquals(BigDecimal.valueOf(0.536), manualBlock.getManualNodes().get(0).getFactor());
 
-    assertEquals(1, series.getCountryGSKBlock().size());
+    assertEquals(1, series.getCountryGskBlocks().size());
     CountryGskBlock countryBlock = series.getLastCountryBlock();
     assertEquals("CountryBlock1", countryBlock.getGskName());
     assertEquals(timeInterval, countryBlock.getTimeInterval());
-    assertEquals(1, series.getAutoGSKBlocks().size());
+    assertEquals(1, series.getAutoGskBlocks().size());
 
     AutoGskBlock autoBlock = series.getLastAutoBlock();
     assertEquals("AutoBlock1", autoBlock.getGskName());
