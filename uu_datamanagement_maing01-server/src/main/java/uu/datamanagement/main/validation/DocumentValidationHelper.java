@@ -27,10 +27,17 @@ public class DocumentValidationHelper {
     return validationResult;
   }
 
-  public ValidationResult eachBlockContainNodes(GskDocument gskDocument, Metadata metadata) {
+  public ValidationResult eachBlockContainNodes(GskDocument gskDocument) {
     ValidationResult validationResult = ValidationResult.success();
 
-    gskDocument.getGskSeries().forEach(gskSeries -> gskSeries.getAllBlocks().forEach(System.out::println));
+    gskDocument.getGskSeries().forEach(
+      gskSeries -> gskSeries.getAllBlocks().forEach(
+        abstractGskBlock -> {
+          if (abstractGskBlock.getNodes().size() <= 3) {
+            validationResult.addValidationMessage(ValidationMessageBuilder.forError(Error.LESS_THEN_THREE_NODE).error());
+          }
+        }
+      ));
 
     return validationResult;
   }
@@ -55,7 +62,7 @@ public class DocumentValidationHelper {
     ValidationResult validationResult = ValidationResult.success();
 
     gskDocument.getGskSeries().forEach(gskSeries -> gskSeries.getAutoGskBlocks().forEach(autoGskBlock -> autoGskBlock.getAutoNodes().forEach(autoNode -> {
-      if (autoNode == null) {
+      if (autoNode.getNodeName().isEmpty()) {
         validationResult.addValidationMessage(ValidationMessageBuilder.forError(Error.AUTO_NODE_NAME_EMPTY).error());
       }
     })));
@@ -66,11 +73,12 @@ public class DocumentValidationHelper {
   public ValidationResult checkAreaCodingName(GskDocument gskDocument) {
     ValidationResult validationResult = ValidationResult.success();
 
-    gskDocument.getGskSeries().forEach(gskSeries -> validationResult.merge(checkAreaName(validationResult, gskSeries.getArea())));
+    gskDocument.getGskSeries().forEach(gskSeries -> validationResult.merge(checkAreaName(gskSeries.getArea())));
     return validationResult;
   }
 
-  private ValidationResult checkAreaName(ValidationResult validationResult, String area) {
+  private ValidationResult checkAreaName(String area) {
+    ValidationResult validationResult = ValidationResult.success();
     if (!area.matches("[A-Z0-9\\-]+")) {
       validationResult.addValidationMessage(ValidationMessageBuilder.forError(Error.AREA_EIC_NOT_VALID).error());
     }

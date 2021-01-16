@@ -29,4 +29,9 @@ public class CountryGskBlock extends AbstractGskBlock {
       .append("countryNodes", countryNodes)
       .toString();
   }
+
+  @Override
+  public List<? extends CountryNode> getNodes() {
+    return countryNodes;
+  }
 }

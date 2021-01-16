@@ -29,4 +29,9 @@ public class AutoGskBlock extends AbstractGskBlock {
       .append("autoNodes", autoNodes)
       .toString();
   }
+
+  @Override
+  public List<? extends AutoNode> getNodes() {
+    return autoNodes;
+  }
 }

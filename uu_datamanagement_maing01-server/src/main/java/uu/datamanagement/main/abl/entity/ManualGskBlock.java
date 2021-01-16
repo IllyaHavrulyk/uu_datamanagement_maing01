@@ -33,4 +33,9 @@ public class ManualGskBlock extends AbstractGskBlock {
       .append("manualNodes", manualNodes)
       .toString();
   }
+
+  @Override
+  public List<? extends ManualNode> getNodes() {
+    return manualNodes;
+  }
 }

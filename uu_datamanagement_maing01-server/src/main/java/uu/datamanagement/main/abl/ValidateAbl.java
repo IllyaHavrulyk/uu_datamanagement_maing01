@@ -1,8 +1,8 @@
 package uu.datamanagement.main.abl;
 
+import java.util.concurrent.ThreadLocalRandom;
 import javax.inject.Inject;
 import org.springframework.stereotype.Component;
-import uu.app.datastore.domain.PageInfo;
 import uu.app.datastore.domain.PagedResult;
 import uu.datamanagement.main.abl.entity.GskDocument;
 import uu.datamanagement.main.abl.entity.Metadata;
@@ -33,15 +33,17 @@ public class ValidateAbl {
     for (Metadata metadata : metadataPagedResult.getItemList()) {
       GskDocument gskDocument = gskDocumentDao.getByMetadataId(awid, metadata.getId());
 
-      validationResult.merge(runValidationProcess(gskDocument, metadata));
+      validationResult.merge(runValidationProcessForOneDocument(gskDocument, metadata));
 
       metadataDao.update(metadata);
+
+      simulatedDelay();
     }
 
     return validationResult;
   }
 
-  private ValidationResult runValidationProcess(GskDocument gskDocument, Metadata metadata) {
+  private ValidationResult runValidationProcessForOneDocument(GskDocument gskDocument, Metadata metadata) {
     ValidationResult validationResult = ValidationResult.success();
 
     validationResult.merge(documentValidationHelper.allTimeIntervalEqualToGskTimeInterval(gskDocument, metadata));
@@ -52,9 +54,20 @@ public class ValidateAbl {
 
     validationResult.merge(documentValidationHelper.checkAreaCodingName(gskDocument));
 
+    validationResult.merge(documentValidationHelper.eachBlockContainNodes(gskDocument));
+
     metadata.setValid(validationResult.getValidationMessages().isEmpty());
     metadata.setValidationResult(validationResult);
     return validationResult;
+  }
+
+  private void simulatedDelay() {
+    try {
+      ThreadLocalRandom random = ThreadLocalRandom.current();
+      Thread.sleep(random.nextInt(1000, 10000));
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
   }
 
 }

@@ -4,7 +4,7 @@ import java.util.Objects;
 import org.springframework.util.Assert;
 import uu.datamanagement.main.utils.TimeInterval;
 
-public abstract class AbstractGskBlock implements EntityWithTimeInterval{
+public abstract class AbstractGskBlock implements EntityWithTimeInterval, GskNode<AbstractNode> {
 
   private String gskName;
   private TimeInterval timeInterval;
