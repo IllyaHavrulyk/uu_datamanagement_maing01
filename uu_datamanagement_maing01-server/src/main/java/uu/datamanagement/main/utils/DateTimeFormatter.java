@@ -19,28 +19,12 @@ public class DateTimeFormatter {
   }
 
   /**
-   * Returns string representation of ZonedDateTime.now(UTC)).
-   */
-  public String nowAsString() {
-    return format(now());
-  }
-
-  /**
    * Format zoned date time (UTC) to string.
    */
   public String format(ZonedDateTime dateTime) {
     dateTime = toUtc(dateTime);
     return dateTime
       .format(java.time.format.DateTimeFormatter.ofPattern(PATTERN_SHORT));
-  }
-
-  /**
-   * Format zoned date time (UTC) to string.
-   */
-  public String formatLong(ZonedDateTime dateTime) {
-    dateTime = toUtc(dateTime);
-    return dateTime
-      .format(java.time.format.DateTimeFormatter.ofPattern(PATTERN_LONG));
   }
 
   /**

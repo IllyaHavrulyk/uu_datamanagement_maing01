@@ -12,10 +12,6 @@ public class TimeIntervalDeserializer extends StdDeserializer<TimeInterval> {
     super(vc);
   }
 
-  public TimeIntervalDeserializer() {
-    this(null);
-  }
-
   @Override
   public TimeInterval deserialize(JsonParser p, com.fasterxml.jackson.databind.DeserializationContext ctxt) throws IOException {
     JsonNode node = p.getCodec().readTree(p);

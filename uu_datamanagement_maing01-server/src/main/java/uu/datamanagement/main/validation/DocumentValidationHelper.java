@@ -2,6 +2,7 @@ package uu.datamanagement.main.validation;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 import uu.datamanagement.main.abl.entity.GskDocument;
 import uu.datamanagement.main.abl.entity.Metadata;
@@ -11,6 +12,24 @@ import uu.datamanagement.main.validation.exception.DocumentValidationException.E
 
 @Component
 public class DocumentValidationHelper {
+
+  public ValidationResult timeSeriesIdIsSequential(GskDocument gskDocument) {
+    ValidationResult validationResult = ValidationResult.success();
+
+    List<Integer> sequence = new ArrayList<>();
+
+    gskDocument.getGskSeries().forEach(gskSeries -> sequence.add(gskSeries.getTimeSeriesId()));
+
+    List<Integer> collect = sequence.stream().sorted().collect(Collectors.toList());
+
+    for (int i = 0; i < sequence.size(); i++) {
+      if (!sequence.get(i).equals(collect.get(i))) {
+        validationResult.addValidationMessage(ValidationMessageBuilder.forError(Error.TIME_SERIES_ID_IS_NOT_SEQUENCE).error());
+      }
+    }
+
+    return validationResult;
+  }
 
   public ValidationResult oneBlockListPresentInFile(GskDocument gskDocument) {
     ValidationResult validationResult = ValidationResult.success();

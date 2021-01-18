@@ -7,15 +7,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections4.ListUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import uu.app.exception.AppErrorMap;
-import uu.app.exception.AppErrorMap.AppError;
 
 public class ValidationResult {
 
@@ -39,19 +33,6 @@ public class ValidationResult {
     this.validationMessages = messages;
     this.severity = severity;
     this.timestamp = timestamp;
-  }
-
-  public static ValidationResult fromErrorMap(AppErrorMap uuAppErrorMap) {
-    ValidationResult result = new ValidationResult();
-    for (Entry<String, AppError> appErrorEntry : uuAppErrorMap.getUuAppErrorMap().entrySet()) {
-      AppError appError = appErrorEntry.getValue();
-      ValidationMessage validationMessage = ValidationMessage.ValidationMessageBuilder.forCode(appErrorEntry.getKey())
-        .detail(appError.getMessage())
-        .addParameters((Map<String, Object>) appError.getParamMap())
-        .build(ValidationResultSeverity.fromName(appError.getType().name()));
-      result.addValidationMessage(validationMessage);
-    }
-    return result;
   }
 
   public static ValidationResult success() {
@@ -86,18 +67,6 @@ public class ValidationResult {
 
   public List<ValidationMessage> getValidationMessages() {
     return Collections.unmodifiableList(validationMessages);
-  }
-
-  public void setValidationMessages(List<ValidationMessage> validationMessages) {
-    this.validationMessages = validationMessages;
-    this.severity = this.validationMessages.stream()
-      .map(ValidationMessage::getSeverity)
-      .max(Comparator.comparingInt(ValidationResultSeverity::getImportance))
-      .orElse(ValidationResultSeverity.OK);
-  }
-
-  public void addValidationMessages(List<ValidationMessage> validationMessages) {
-    setValidationMessages(ListUtils.union(this.validationMessages, validationMessages));
   }
 
   public void addValidationMessage(ValidationMessage validationMessage) {

@@ -133,6 +133,13 @@ public class GSKDocumentAblTest {
     }
 
     assertNotNull(dtoOut);
+    assertEquals(3, gskDocuments.size());
+    assertNotNull(gskDocuments.get(0).getGskSeries());
+    assertNotNull(gskDocuments.get(0).getGskSeries().get(0).getAutoGskBlocks());
+    assertEquals(1, gskDocuments.get(0).getGskSeries().get(0).getAutoGskBlocks().size());
+    assertEquals(89, gskDocuments.get(0).getGskSeries().get(0).getAutoGskBlocks().get(0).getAutoNodes().size());
+
+    assertEquals(3, metadataList.size());
   }
 
   private void createdDataBeforeExportArchive() {

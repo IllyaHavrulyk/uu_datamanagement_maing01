@@ -17,6 +17,7 @@ public class DocumentValidationException extends AppRuntimeException {
     AUTO_NODE_NAME_EMPTY(ERROR_PREFIX + "nodeNameAlwaysPresentFailed", "AutoBlock.NodeName is empty."),
     AREA_EIC_NOT_VALID(ERROR_PREFIX + "checkAreaCodingNameFailed", "AreaEic contain not only A-Z 0-9 - symbols."),
     LESS_THEN_THREE_NODE(ERROR_PREFIX + "eachBlockContainNodesFailed", "Each block should contain more then 3 Node."),
+    TIME_SERIES_ID_IS_NOT_SEQUENCE(ERROR_PREFIX + "timeSeriesIdIsSequentialFailed", "TimeSeriesIdentification in GskSeries is not correct sequence."),
     DOCUMENT_HAS_SEVERAL_TYPE_BLOCK(ERROR_PREFIX + "oneBlockListPresentInFileFailed", "Document has block more than one type.");
 
     private final String message;

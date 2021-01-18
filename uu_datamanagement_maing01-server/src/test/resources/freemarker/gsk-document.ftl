@@ -14,8 +14,8 @@
     <TimeSeriesIdentification v="${seria.timeSeriesId}"/>
     <BusinessType v="${seria.businessType}"/>
     <Area v="${seria.area}"/>
-    <#if seria.manualGSKBlock?has_content>
-    <#list seria.manualGSKBlock as manualBlock>
+    <#if seria.manualGskBlocks?has_content>
+    <#list seria.manualGskBlocks as manualBlock>
     <ManualGSK_Block>
       <GSK_Name v="${manualBlock.gskName}"/>
       <TimeInterval v="${manualBlock.timeInterval}"/>
@@ -30,8 +30,8 @@
     </ManualGSK_Block>
     </#list>
     </#if>
-    <#if seria.countryGSKBlock?has_content>
-    <#list seria.countryGSKBlock as countryBlock>
+    <#if seria.countryGskBlocks?has_content>
+    <#list seria.countryGskBlocks as countryBlock>
     <CountryGSK_Block>
       <GSK_Name v="${countryBlock.gskName}"/>
       <TimeInterval v="${countryBlock.timeInterval}"/>

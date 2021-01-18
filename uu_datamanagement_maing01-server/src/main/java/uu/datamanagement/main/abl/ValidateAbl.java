@@ -56,6 +56,8 @@ public class ValidateAbl {
 
     validationResult.merge(documentValidationHelper.eachBlockContainNodes(gskDocument));
 
+    validationResult.merge(documentValidationHelper.timeSeriesIdIsSequential(gskDocument));
+
     metadata.setValid(validationResult.getValidationMessages().isEmpty());
     metadata.setValidationResult(validationResult);
     return validationResult;

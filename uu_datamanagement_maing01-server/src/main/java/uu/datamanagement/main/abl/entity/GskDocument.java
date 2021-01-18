@@ -3,7 +3,6 @@ package uu.datamanagement.main.abl.entity;
 import java.util.List;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import uu.app.objectstore.mongodb.domain.AbstractUuObject;
-import uu.app.validation.ValidationResult;
 
 public class GskDocument extends AbstractUuObject {
 

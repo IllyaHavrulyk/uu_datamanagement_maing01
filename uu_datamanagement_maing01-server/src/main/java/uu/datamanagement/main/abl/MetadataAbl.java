@@ -1,6 +1,5 @@
 package uu.datamanagement.main.abl;
 
-import java.io.IOException;
 import java.util.Collections;
 import javax.inject.Inject;
 import org.modelmapper.ModelMapper;
@@ -8,10 +7,10 @@ import org.springframework.stereotype.Component;
 import uu.app.datastore.domain.PagedResult;
 import uu.app.server.dto.PageInfo;
 import uu.datamanagement.main.abl.entity.Metadata;
-import uu.datamanagement.main.api.dto.MetadataUpdateDtoOut;
 import uu.datamanagement.main.api.dto.MetadataListDtoIn;
 import uu.datamanagement.main.api.dto.MetadataListDtoOut;
 import uu.datamanagement.main.api.dto.MetadataUpdateDtoIn;
+import uu.datamanagement.main.api.dto.MetadataUpdateDtoOut;
 import uu.datamanagement.main.api.exceptions.MetadataRuntimeException;
 import uu.datamanagement.main.api.exceptions.MetadataRuntimeException.Error;
 import uu.datamanagement.main.dao.MetadataDao;

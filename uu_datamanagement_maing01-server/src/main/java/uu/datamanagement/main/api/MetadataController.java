@@ -10,10 +10,10 @@ import uu.app.server.CommandContext;
 import uu.app.server.annotation.Command;
 import uu.app.server.annotation.CommandController;
 import uu.datamanagement.main.abl.MetadataAbl;
-import uu.datamanagement.main.api.dto.MetadataUpdateDtoOut;
 import uu.datamanagement.main.api.dto.MetadataListDtoIn;
 import uu.datamanagement.main.api.dto.MetadataListDtoOut;
 import uu.datamanagement.main.api.dto.MetadataUpdateDtoIn;
+import uu.datamanagement.main.api.dto.MetadataUpdateDtoOut;
 
 @CommandController
 public class MetadataController {

@@ -47,7 +47,9 @@ public class DocumentValidationHelperTest {
   private final Map<String, BiConsumer<GskDocument, ValidationResult>> keyMap = Stream.of(
     new AbstractMap.SimpleEntry<String, BiConsumer<GskDocument, ValidationResult>>("oneBlockListPresentInFile", (g, v) -> validationResultForOneBlockTest(v, g)),
     new AbstractMap.SimpleEntry<String, BiConsumer<GskDocument, ValidationResult>>("checkAreaCodingName", (g, v) -> validationResultForCheckAreaCodingName(v, g)),
-    new AbstractMap.SimpleEntry<String, BiConsumer<GskDocument, ValidationResult>>("nodeNameAlwaysPresent", (g, v) -> validationResultForNodeNameAlwaysPresent(v, g))
+    new AbstractMap.SimpleEntry<String, BiConsumer<GskDocument, ValidationResult>>("nodeNameAlwaysPresent", (g, v) -> validationResultForNodeNameAlwaysPresent(v, g)),
+    new AbstractMap.SimpleEntry<String, BiConsumer<GskDocument, ValidationResult>>("timeSeriesIdIsSequential", (g, v) -> validationResultForTimeSeriesIdIsSequential(v, g)),
+    new AbstractMap.SimpleEntry<String, BiConsumer<GskDocument, ValidationResult>>("eachBlockContainNodes", (g, v) -> validationResultForEachBlockContainNodes(v, g))
   ).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
 
@@ -67,7 +69,8 @@ public class DocumentValidationHelperTest {
   @Ignore
   @Test
   public void testAllTimeIntervalEqualToGskTimeInterval() {
-    ValidationResult validationResult = getValidationResultOfTest(Arrays.asList("F103-GenerationAndLoadShiftKeys_BE_v02", "F103-GenerationAndLoadShiftKeys_CZ_v01"), "");
+    ValidationResult validationResult = getValidationResultOfTest(Arrays.asList("F103-GenerationAndLoadShiftKeys_BE_v02", "F103-GenerationAndLoadShiftKeys_CZ_v01"),
+      "allTimeIntervalEqualToGskTimeInterval");
 
     assertTrue(validationResult.getValidationMessages().isEmpty());
     assertEquals(validationResult.getSeverity(), ValidationResultSeverity.OK);
@@ -76,11 +79,45 @@ public class DocumentValidationHelperTest {
   @Ignore
   @Test
   public void failedTestAllTimeIntervalEqualToGskTimeInterval() {
-    ValidationResult validationResult = getValidationResultOfTest(Collections.singletonList("for-failed-test"), "");
+    ValidationResult validationResult = getValidationResultOfTest(Collections.singletonList("for-failed-test"), "allTimeIntervalEqualToGskTimeInterval");
 
     assertFalse(validationResult.getValidationMessages().isEmpty());
     assertEquals(validationResult.getSeverity(), ValidationResultSeverity.ERROR);
     assertEquals("SubTimeInterval not valid to main timeInterval.", validationResult.getValidationMessages().get(0).getDetail());
+  }
+
+  @Test
+  public void testTimeSeriesIdIsSequential() {
+    ValidationResult validationResult = getValidationResultOfTest(Arrays.asList("F103-GenerationAndLoadShiftKeys_BE_v02", "F103-GenerationAndLoadShiftKeys_CZ_v01"), "timeSeriesIdIsSequential");
+
+    assertTrue(validationResult.getValidationMessages().isEmpty());
+    assertEquals(ValidationResultSeverity.OK, validationResult.getSeverity());
+  }
+
+  @Test
+  public void testFailedTimeSeriesIdIsSequential() {
+    ValidationResult validationResult = getValidationResultOfTest(Collections.singletonList("for-failed-test-sequence"), "timeSeriesIdIsSequential");
+
+    assertTrue(!validationResult.getValidationMessages().isEmpty());
+    assertEquals(ValidationResultSeverity.ERROR, validationResult.getSeverity());
+    assertEquals("TimeSeriesIdentification in GskSeries is not correct sequence.", validationResult.getValidationMessages().get(0).getDetail());
+  }
+
+  @Test
+  public void testEachBlockContainNodes() {
+    ValidationResult validationResult = getValidationResultOfTest(Arrays.asList("F103-GenerationAndLoadShiftKeys_BE_v02", "F103-GenerationAndLoadShiftKeys_CZ_v01"), "eachBlockContainNodes");
+
+    assertTrue(validationResult.getValidationMessages().isEmpty());
+    assertEquals(ValidationResultSeverity.OK, validationResult.getSeverity());
+  }
+
+  @Test
+  public void testFailedEachBlockContainNodes() {
+    ValidationResult validationResult = getValidationResultOfTest(Collections.singletonList("for-failed-test-contain-nodes"), "eachBlockContainNodes");
+
+    assertTrue(!validationResult.getValidationMessages().isEmpty());
+    assertEquals(ValidationResultSeverity.ERROR, validationResult.getSeverity());
+    assertEquals("Each block should contain more then 3 Node.", validationResult.getValidationMessages().get(0).getDetail());
   }
 
   @Test
@@ -178,6 +215,14 @@ public class DocumentValidationHelperTest {
 
   private void validationResultForNodeNameAlwaysPresent(ValidationResult validationResult, GskDocument g) {
     validationResult.merge(documentValidationHelper.nodeNameAlwaysPresent(g));
+  }
+
+  private void validationResultForEachBlockContainNodes(ValidationResult validationResult, GskDocument g) {
+    validationResult.merge(documentValidationHelper.eachBlockContainNodes(g));
+  }
+
+  private void validationResultForTimeSeriesIdIsSequential(ValidationResult validationResult, GskDocument g) {
+    validationResult.merge(documentValidationHelper.timeSeriesIdIsSequential(g));
   }
 
   @Configuration
