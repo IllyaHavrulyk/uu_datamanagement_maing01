@@ -10,17 +10,11 @@ public abstract class AbstractGskBlock implements EntityWithTimeInterval, GskNod
   private TimeInterval timeInterval;
 
   AbstractGskBlock() {
-
   }
 
   AbstractGskBlock(String gskName) {
     Assert.hasLength(gskName, "Name cannot be empty.");
     this.gskName = gskName;
-  }
-
-  AbstractGskBlock(String gskName, TimeInterval timeInterval) {
-    this.gskName = gskName;
-    this.timeInterval = timeInterval;
   }
 
   public TimeInterval getTimeInterval() {

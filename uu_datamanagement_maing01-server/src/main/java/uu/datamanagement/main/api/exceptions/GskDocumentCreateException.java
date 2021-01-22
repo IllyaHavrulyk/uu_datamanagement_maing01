@@ -12,10 +12,14 @@ public class GskDocumentCreateException extends AppRuntimeException {
     super(error.getErrorCode(), error.getMessage(), cause, (Object) null);
   }
 
+  public GskDocumentCreateException(Error code) {
+    super(code.getErrorCode(), code.getMessage(), (Object) null);
+  }
+
   public enum Error implements ErrorDefinition {
 
     INVALID_DTO_IN(ERROR_PREFIX + "invalidDtoIn", "DtoIn is not valid."),
-    DESERELIZATION_FAILED(ERROR_PREFIX + "deserealizationFailed", "Failed to parse document."),
+    GET_INPUT_STREAM_FAILED(ERROR_PREFIX + "getInputStreamFailed", "Failed to get inputStream from MultipartFile."),
     CREATE_METADATA_FAILED(ERROR_PREFIX + "createMetadataFailed", "Failed to create metadata."),
     CREATE_GSK_DOCUMENT_FAILED(ERROR_PREFIX + "createGskDocumentFailed", "Failed to create gskDocument.");
 

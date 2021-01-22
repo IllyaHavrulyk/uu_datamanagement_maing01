@@ -27,7 +27,6 @@ public class DocumentValidationHelper {
         validationResult.addValidationMessage(ValidationMessageBuilder.forError(Error.TIME_SERIES_ID_IS_NOT_SEQUENCE).error());
       }
     }
-
     return validationResult;
   }
 
@@ -35,7 +34,6 @@ public class DocumentValidationHelper {
     ValidationResult validationResult = ValidationResult.success();
 
     List<String> result = new ArrayList<>();
-
     gskDocument.getGskSeries().forEach(gskSeries -> gskSeries.getAllBlocks().forEach(abstractGskBlock -> result.add(abstractGskBlock.getClass().getName())));
 
     result.forEach(s -> {
@@ -57,7 +55,6 @@ public class DocumentValidationHelper {
           }
         }
       ));
-
     return validationResult;
   }
 
@@ -65,7 +62,6 @@ public class DocumentValidationHelper {
     ValidationResult validationResult = ValidationResult.success();
 
     List<TimeInterval> timeIntervals = new ArrayList<>();
-
     gskDocument.getGskSeries().forEach(gskSeries -> gskSeries.getAllBlocks().forEach(abstractGskBlock -> timeIntervals.add(abstractGskBlock.getTimeInterval())));
 
     for (TimeInterval time : timeIntervals) {
@@ -73,7 +69,6 @@ public class DocumentValidationHelper {
         validationResult.addValidationMessage(ValidationMessageBuilder.forError(Error.TIME_INTERVAL_NO_VALID).error());
       }
     }
-
     return validationResult;
   }
 
@@ -85,7 +80,6 @@ public class DocumentValidationHelper {
         validationResult.addValidationMessage(ValidationMessageBuilder.forError(Error.AUTO_NODE_NAME_EMPTY).error());
       }
     })));
-
     return validationResult;
   }
 

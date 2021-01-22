@@ -20,8 +20,7 @@ public class GskDocumentExportException extends AppRuntimeException {
 
     INVALID_DTO_IN(ERROR_PREFIX + "invalidDtoIn", "DtoIn is not valid."),
     GET_METADATA_FAILED(ERROR_PREFIX + "generateZipArchive/metadataGetByIdFailed", "Metadata by dtoIn.id doesn't exist."),
-    BUILD_DOCUMENT_FAILED(ERROR_PREFIX + "generateZipArchive/buildDocumentFailed", "GskDocumentBuilder can't execute cmd build."),
-    GET_GENERATED_ZIP_FAILED(ERROR_PREFIX + "getGeneratedZipFailed", "Get bytes from generated zip archive failed.");
+    BUILD_DOCUMENT_FAILED(ERROR_PREFIX + "generateZipArchive/buildDocumentFailed", "GskDocumentBuilder can't execute cmd build.");
 
     private final String code;
     private final String message;

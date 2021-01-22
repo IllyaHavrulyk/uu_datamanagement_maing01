@@ -8,8 +8,8 @@ public class GskDocumentBuilderException extends AppRuntimeException {
 
   private static final String ERROR_PREFIX = "uu-datamanagement-main/serde/gskDocumentBuilder";
 
-  public GskDocumentBuilderException(Error error, Throwable cause) {
-    super(error.getErrorCode(), error.getMessage(), cause, (Object) null);
+  public GskDocumentBuilderException(Error error) {
+    super(error.getErrorCode(), error.getMessage(), (Object) null);
   }
 
   public enum Error implements ErrorDefinition {

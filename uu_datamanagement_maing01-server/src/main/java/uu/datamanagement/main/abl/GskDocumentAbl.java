@@ -27,8 +27,10 @@ import uu.datamanagement.main.api.exceptions.GskDocumentExportException.Error;
 import uu.datamanagement.main.dao.GskDocumentDao;
 import uu.datamanagement.main.dao.MetadataDao;
 import uu.datamanagement.main.helper.ValidationHelper;
+import uu.datamanagement.main.helper.exception.GskDocumentParserException;
 import uu.datamanagement.main.helper.parser.GskDocumentParser;
 import uu.datamanagement.main.serde.GskDocumentBuilder;
+import uu.datamanagement.main.serde.exception.GskDocumentBuilderException;
 
 @Component
 public class GskDocumentAbl {
@@ -59,9 +61,8 @@ public class GskDocumentAbl {
       document = documentParser.process(dtoIn.getDocument().getInputStream());
       metadata = documentParser.getMetadata();
       document.setGskSeries(documentParser.getSeriesList());
-
-    } catch (IOException e) {
-      throw new GskDocumentCreateException(GskDocumentCreateException.Error.DESERELIZATION_FAILED, e);
+    } catch (GskDocumentParserException | IOException e) {
+      throw new GskDocumentCreateException(GskDocumentCreateException.Error.GET_INPUT_STREAM_FAILED);
     }
 
     metadata.setFileName(dtoIn.getDocument().getOriginalFilename());
@@ -90,42 +91,30 @@ public class GskDocumentAbl {
     PagedResult<GskDocument> pagedResult = gskDocumentDao.list(awid, dtoIn.getPageInfo());
     List<GskDocument> gskDocuments = pagedResult.getItemList();
 
-    byte[] result;
-    try {
-      result = generateZipArchive(awid, gskDocuments);
-    } catch (IOException e) {
-      throw new GskDocumentExportException(Error.GET_GENERATED_ZIP_FAILED, e);
-    }
-
+    byte[] result = generateZipArchive(awid, gskDocuments);
     String filename = ZonedDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + ".zip";
-
     return createDtoOut(filename, result);
   }
 
-  private byte[] generateZipArchive(String awid, List<GskDocument> gskDocuments) throws IOException {
+  private byte[] generateZipArchive(String awid, List<GskDocument> gskDocuments) {
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
-    ZipOutputStream zos = new ZipOutputStream(baos);
 
-    for (GskDocument gskDocument : gskDocuments) {
-      Metadata metadata = metadataDao.getById(awid, gskDocument.getMetadataId())
-        .orElseThrow(() -> new GskDocumentExportException(GskDocumentExportException.Error.GET_METADATA_FAILED, Collections.singletonMap("id", gskDocument.getMetadataId())));
+    try (ZipOutputStream zos = new ZipOutputStream(baos);) {
+      for (GskDocument gskDocument : gskDocuments) {
+        Metadata metadata = metadataDao.getById(awid, gskDocument.getMetadataId())
+          .orElseThrow(() -> new GskDocumentExportException(GskDocumentExportException.Error.GET_METADATA_FAILED, Collections.singletonMap("id", gskDocument.getMetadataId())));
 
-      byte[] bytes;
+        byte[] bytes = gskDocumentBuilder.build(gskDocument, metadata);
 
-      try {
-        bytes = gskDocumentBuilder.build(gskDocument, metadata);
-      } catch (GskDocumentExportException e) {
-        throw new GskDocumentExportException(Error.BUILD_DOCUMENT_FAILED, e);
+        ZipEntry zipEntry = new ZipEntry(metadata.getFileName());
+        zipEntry.setSize(bytes.length);
+        zos.putNextEntry(zipEntry);
+        zos.write(bytes);
+        zos.closeEntry();
       }
-
-      ZipEntry zipEntry = new ZipEntry(metadata.getFileName());
-      zipEntry.setSize(bytes.length);
-      zos.putNextEntry(zipEntry);
-      zos.write(bytes);
-      zos.closeEntry();
+    } catch (GskDocumentBuilderException | IOException e) {
+      throw new GskDocumentExportException(Error.BUILD_DOCUMENT_FAILED, e);
     }
-
-    zos.close();
     return baos.toByteArray();
   }
 

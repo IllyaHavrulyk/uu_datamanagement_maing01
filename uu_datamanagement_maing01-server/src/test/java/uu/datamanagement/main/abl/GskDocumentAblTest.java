@@ -42,6 +42,7 @@ import uu.datamanagement.main.abl.entity.Metadata;
 import uu.datamanagement.main.api.dto.GskDocumentCreateDtoIn;
 import uu.datamanagement.main.api.dto.GskDocumentCreateDtoOut;
 import uu.datamanagement.main.api.dto.GskDoumentExportDtoIn;
+import uu.datamanagement.main.api.exceptions.GskDocumentCreateException;
 import uu.datamanagement.main.api.exceptions.GskDocumentCreateException.Error;
 import uu.datamanagement.main.dao.GskDocumentDao;
 import uu.datamanagement.main.dao.MetadataDao;
@@ -58,9 +59,11 @@ import uu.datamanagement.main.xml.freemarker.FreemarkerProcessor;
 @SpringBootTest
 @ContextConfiguration(classes = {
   SubAppPersistenceConfiguration.class,
-  GSKDocumentAblTest.GSKDocumentAblTestConfiguration.class
+  GskDocumentAblTest.GSKDocumentAblTestConfiguration.class
 })
-public class GSKDocumentAblTest {
+public class GskDocumentAblTest {
+
+  private static final String GSK_TEMPLATE = "/gsk-document.ftl";
 
   @Autowired
   @Rule
@@ -77,7 +80,7 @@ public class GSKDocumentAblTest {
 
   @Test
   public void testCreateGSKDocument() {
-    GskDocumentCreateDtoIn dtoIn = generateGSKDocumentDtoIn();
+    GskDocumentCreateDtoIn dtoIn = generateGSKDocumentDtoIn("gsk-create-hds.xml");
 
     when(validator.validate(dtoIn)).thenReturn(new DefaultValidationResult());
     GskDocumentCreateDtoOut dtoOut = gskDocumentAbl.create(clearDatabaseRule.getAwid(), dtoIn);
@@ -142,6 +145,17 @@ public class GSKDocumentAblTest {
     assertEquals(3, metadataList.size());
   }
 
+  @Test
+  public void getInputStreamFailedTest() {
+    exceptionRule.expect(GskDocumentCreateException.class);
+    exceptionRule.expectMessage("Failed to get inputStream from MultipartFile.");
+
+    GskDocumentCreateDtoIn dtoIn = generateGSKDocumentDtoIn("");
+
+    when(validator.validate(dtoIn)).thenReturn(new DefaultValidationResult());
+    gskDocumentAbl.create(clearDatabaseRule.getAwid(), dtoIn);
+  }
+
   private void createdDataBeforeExportArchive() {
     GskDocumentCreateDtoIn dtoIn = new GskDocumentCreateDtoIn();
     List<String> filenamesForTest = Arrays.asList("F103-GenerationAndLoadShiftKeys_CZ_v01", "F103-GenerationAndLoadShiftKeys_DE-50Hz_v01", "F103-GenerationAndLoadShiftKeys_HR_v01");
@@ -159,12 +173,12 @@ public class GSKDocumentAblTest {
     }
   }
 
-  private GskDocumentCreateDtoIn generateGSKDocumentDtoIn() {
+  private GskDocumentCreateDtoIn generateGSKDocumentDtoIn(String filename) {
     GskDocumentCreateDtoIn dtoIn = new GskDocumentCreateDtoIn();
     dtoIn.setName("F103-GeneratingAndLoadShiftKeys");
     dtoIn.setText("File for testing request");
 
-    try (InputStream resourceAsStream = getClass().getResourceAsStream("gsk-create-hds.xml")) {
+    try (InputStream resourceAsStream = getClass().getResourceAsStream(filename)) {
       MockMultipartFile multipartFile = new MockMultipartFile("gsk-create-hds", "gsk-create-hds.xml", MediaType.MULTIPART_FORM_DATA.getType(), resourceAsStream);
       dtoIn.setDocument(multipartFile);
     } catch (IOException e) {
@@ -215,11 +229,16 @@ public class GSKDocumentAblTest {
     @Bean
     GskDocumentBuilder gskDocumentBuilder() {
       try {
-        return new GskDocumentBuilder(new FreemarkerProcessor(freemarkerConfiguration()));
+        return new GskDocumentBuilder(freemarkerProcessor());
       } catch (TemplateException e) {
         e.printStackTrace();
       }
       return Mockito.mock(GskDocumentBuilder.class);
+    }
+
+    @Bean
+    FreemarkerProcessor freemarkerProcessor() throws TemplateException {
+      return new FreemarkerProcessor(freemarkerConfiguration());
     }
 
     @Bean
@@ -230,7 +249,5 @@ public class GSKDocumentAblTest {
       cfg.setSetting("number_format", "0.#########");
       return cfg;
     }
-
-
   }
 }

@@ -1,6 +1,7 @@
 package uu.datamanagement.main.serde;
 
 import freemarker.template.TemplateException;
+import freemarker.template.TemplateNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,7 +33,7 @@ public class GskDocumentBuilder {
     try {
       return freemarkerProcessor.generateBinaryOutput(GSK_TEMPLATE, input);
     } catch (TemplateException | IOException e) {
-      throw new GskDocumentBuilderException(Error.BUILD_DOCUMENT_FAILED, e);
+      throw new GskDocumentBuilderException(Error.BUILD_DOCUMENT_FAILED);
     }
   }
 

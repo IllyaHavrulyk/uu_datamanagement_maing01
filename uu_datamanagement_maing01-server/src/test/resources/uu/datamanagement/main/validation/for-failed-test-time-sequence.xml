@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<GSKDocument xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <DocumentIdentification v="10XSK-SEPS-GRIDB-20190220-F103-v1"/>
+  <DocumentVersion v="1"/>
+  <DocumentType v="B22"/>
+  <ProcessType v="Z02"/>
+  <SenderIdentification codingScheme="A01" v="10XSK-SEPS-GRIDB"/>
+  <SenderRole v="A04"/>
+  <ReceiverIdentification codingScheme="A01" v="17XTSO-CS------W"/>
+  <ReceiverRole v="A36"/>
+  <CreationDateTime v="2019-02-13T09:30:00Z"/>
+  <GSKTimeInterval v="2019-02-19T23:00Z/2019-02-20T23:00Z"/>
+  <Domain codingScheme="A01" v="10Y1001C--00059P"/>
+  <GSKSeries>
+    <TimeSeriesIdentification v="1"/>
+    <BusinessType share="10.000" v="Z02"/>
+    <Area codingScheme="A01" v="10jSK-SEPS-----K"/>
+    <CountryGSK_Block>
+      <GSK_Name v="SK"/>
+      <TimeInterval v="2019-02-19T19:00Z/2019-02-20T23:30Z"/>
+      <CountryNodes>
+        <NodeName v="QEVO1_21"/>
+      </CountryNodes>
+      <CountryNodes>
+        <NodeName v="QGABC_12"/>
+      </CountryNodes>
+    </CountryGSK_Block>
+    <CountryGSK_Block>
+      <GSK_Name v="SK"/>
+      <TimeInterval v="2019-02-19T23:00Z/2019-02-20T23:30Z"/>
+    </CountryGSK_Block>
+    <ManualGSK_Block>
+      <GSK_Name v="BE"/>
+      <TimeInterval v="2019-02-19T23:00Z/2019-02-21T23:50Z"/>
+      <ManualNodes>
+        <NodeName v="BAMERC3V"/>
+        <Factor v="0.040358"/>
+      </ManualNodes>
+    </ManualGSK_Block>
+    <AutoGSK_Block>
+      <GSK_Name v="CZ"/>
+      <TimeInterval v="2019-02-19T23:00Z/2019-02-20T23:00Z"/>
+      <AutoNodes>
+        <NodeName v=""/>
+      </AutoNodes>
+      <AutoNodes>
+        <NodeName v="CTBE__53"/>
+      </AutoNodes>
+    </AutoGSK_Block>
+  </GSKSeries>
+</GSKDocument>

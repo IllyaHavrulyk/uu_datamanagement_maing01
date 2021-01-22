@@ -24,6 +24,12 @@
 			<AutoNodes>
 				<NodeName v="HTEPLO2 "/>
 			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="HTEPL02 "/>
+			</AutoNodes>
+			<AutoNodes>
+				<NodeName v="HTE3L02 "/>
+			</AutoNodes>
 		</AutoGSK_Block>
 	</GSKSeries>
 	<GSKSeries>

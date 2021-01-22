@@ -3,6 +3,7 @@ package uu.datamanagement.main.xml.freemarker;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import freemarker.template.TemplateNotFoundException;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;

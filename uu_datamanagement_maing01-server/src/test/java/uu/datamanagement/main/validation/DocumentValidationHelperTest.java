@@ -35,6 +35,7 @@ import uu.datamanagement.main.dao.mongo.MetadataMongoDao;
 import uu.datamanagement.main.helper.parser.GskDocumentParser;
 import uu.datamanagement.main.rules.ClearDatabaseRule;
 import uu.datamanagement.main.validation.DocumentValidationHelperTest.DocumentValidationHelperConfiguration;
+import uu.datamanagement.main.validation.exception.DocumentValidationException.Error;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -66,24 +67,36 @@ public class DocumentValidationHelperTest {
   @Inject
   private DocumentValidationHelper documentValidationHelper;
 
-  @Ignore
   @Test
   public void testAllTimeIntervalEqualToGskTimeInterval() {
-    ValidationResult validationResult = getValidationResultOfTest(Arrays.asList("F103-GenerationAndLoadShiftKeys_BE_v02", "F103-GenerationAndLoadShiftKeys_CZ_v01"),
-      "allTimeIntervalEqualToGskTimeInterval");
+    prepareDataForTest(Arrays.asList("F103-GenerationAndLoadShiftKeys_BE_v02", "F103-GenerationAndLoadShiftKeys_CZ_v01"));
+    ValidationResult validationResult = ValidationResult.success();
+    List<Metadata> metadataList = metadataDao.listWithEmptyValidField(clearDatabaseRule.getAwid()).getItemList();
+
+    for (Metadata metadata : metadataList) {
+      GskDocument gskDocument = gskDocumentDao.getByMetadataId(clearDatabaseRule.getAwid(), metadata.getId());
+      validationResult.merge(documentValidationHelper.allTimeIntervalEqualToGskTimeInterval(gskDocument, metadata));
+    }
 
     assertTrue(validationResult.getValidationMessages().isEmpty());
     assertEquals(validationResult.getSeverity(), ValidationResultSeverity.OK);
   }
 
-  @Ignore
   @Test
   public void failedTestAllTimeIntervalEqualToGskTimeInterval() {
-    ValidationResult validationResult = getValidationResultOfTest(Collections.singletonList("for-failed-test"), "allTimeIntervalEqualToGskTimeInterval");
+    prepareDataForTest(Arrays.asList("for-failed-test-time-sequence"));
+    ValidationResult validationResult = ValidationResult.success();
+    List<Metadata> metadataList = metadataDao.listWithEmptyValidField(clearDatabaseRule.getAwid()).getItemList();
+
+    for (Metadata metadata : metadataList) {
+      GskDocument gskDocument = gskDocumentDao.getByMetadataId(clearDatabaseRule.getAwid(), metadata.getId());
+      validationResult.merge(documentValidationHelper.allTimeIntervalEqualToGskTimeInterval(gskDocument, metadata));
+    }
 
     assertFalse(validationResult.getValidationMessages().isEmpty());
     assertEquals(validationResult.getSeverity(), ValidationResultSeverity.ERROR);
-    assertEquals("SubTimeInterval not valid to main timeInterval.", validationResult.getValidationMessages().get(0).getDetail());
+    assertEquals(Error.TIME_INTERVAL_NO_VALID.getMessage(), validationResult.getValidationMessages().get(0).getDetail());
+    assertEquals(Error.TIME_INTERVAL_NO_VALID.getErrorCode().getErrorCode(), validationResult.getValidationMessages().get(0).getCode());
   }
 
   @Test
@@ -98,9 +111,10 @@ public class DocumentValidationHelperTest {
   public void testFailedTimeSeriesIdIsSequential() {
     ValidationResult validationResult = getValidationResultOfTest(Collections.singletonList("for-failed-test-sequence"), "timeSeriesIdIsSequential");
 
-    assertTrue(!validationResult.getValidationMessages().isEmpty());
+    assertFalse(validationResult.getValidationMessages().isEmpty());
     assertEquals(ValidationResultSeverity.ERROR, validationResult.getSeverity());
-    assertEquals("TimeSeriesIdentification in GskSeries is not correct sequence.", validationResult.getValidationMessages().get(0).getDetail());
+    assertEquals(Error.TIME_SERIES_ID_IS_NOT_SEQUENCE.getMessage(), validationResult.getValidationMessages().get(0).getDetail());
+    assertEquals(Error.TIME_SERIES_ID_IS_NOT_SEQUENCE.getErrorCode().getErrorCode(), validationResult.getValidationMessages().get(0).getCode());
   }
 
   @Test
@@ -115,9 +129,9 @@ public class DocumentValidationHelperTest {
   public void testFailedEachBlockContainNodes() {
     ValidationResult validationResult = getValidationResultOfTest(Collections.singletonList("for-failed-test-contain-nodes"), "eachBlockContainNodes");
 
-    assertTrue(!validationResult.getValidationMessages().isEmpty());
+    assertFalse(validationResult.getValidationMessages().isEmpty());
     assertEquals(ValidationResultSeverity.ERROR, validationResult.getSeverity());
-    assertEquals("Each block should contain more then 3 Node.", validationResult.getValidationMessages().get(0).getDetail());
+    assertEquals(Error.LESS_THEN_THREE_NODE.getMessage(), validationResult.getValidationMessages().get(0).getDetail());
   }
 
   @Test
@@ -133,7 +147,7 @@ public class DocumentValidationHelperTest {
     ValidationResult validationResult = getValidationResultOfTest(Collections.singletonList("for-failed-test"), "oneBlockListPresentInFile");
 
     assertFalse(validationResult.getValidationMessages().isEmpty());
-    assertEquals("Document has block more than one type.", validationResult.getValidationMessages().get(0).getDetail());
+    assertEquals(Error.DOCUMENT_HAS_SEVERAL_TYPE_BLOCK.getMessage(), validationResult.getValidationMessages().get(0).getDetail());
   }
 
   @Test
@@ -150,7 +164,7 @@ public class DocumentValidationHelperTest {
 
     assertFalse(validationResult.getValidationMessages().isEmpty());
     assertEquals(validationResult.getSeverity(), ValidationResultSeverity.ERROR);
-    assertEquals("AutoBlock.NodeName is empty.", validationResult.getValidationMessages().get(0).getDetail());
+    assertEquals(Error.AUTO_NODE_NAME_EMPTY.getMessage(), validationResult.getValidationMessages().get(0).getDetail());
   }
 
   @Test
@@ -167,7 +181,7 @@ public class DocumentValidationHelperTest {
 
     assertFalse(validationResult.getValidationMessages().isEmpty());
     assertEquals(validationResult.getSeverity(), ValidationResultSeverity.ERROR);
-    assertEquals("AreaEic contain not only A-Z 0-9 - symbols.", validationResult.getValidationMessages().get(0).getDetail());
+    assertEquals(Error.AREA_EIC_NOT_VALID.getMessage(), validationResult.getValidationMessages().get(0).getDetail());
   }
 
   private ValidationResult getValidationResultOfTest(List<String> filenames, String methodName) {
